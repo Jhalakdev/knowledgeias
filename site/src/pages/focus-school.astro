@@ -1,0 +1,223 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const curriculum = [
+  {
+    subject: "Internal Security",
+    icon: "shield",
+    lectures: [
+      "Internal Security Challenges of India",
+      "Left-Wing Extremism & Naxalism — meaning, history, contemporary challenge",
+      "Terrorism, Terror Groups in India & frameworks to deal with it",
+      "Organised Crime, Narco-Terrorism",
+      "Security Challenges in North-East, Assam Insurgency",
+      "Security Issues of Border Areas & Management",
+      "Basics of Cyber Security, Cyber Warfare",
+      "Black Money — issues & challenges",
+      "Security Forces: Assam Rifles, BSF, ITBP, CISF, CRPF, NSG",
+      "Coastal Security — issues & challenges",
+      "Make-in-India in the Defence Sector",
+    ],
+  },
+  {
+    subject: "Indian Society",
+    icon: "users",
+    lectures: [
+      "Salient Features of Indian Society — Unity in Diversity",
+      "Caste — origin, issues & challenges",
+      "Communalism & Secularism — contemporary issues",
+      "Regionalism — concept, types and issues",
+      "Constitutional provisions for socially disadvantaged classes",
+      "Scheduled Castes — issues & journey",
+      "Tribals in India — types, development & displacement",
+      "Women — issues & movements",
+      "Urbanization — issues & challenges",
+      "Census 2011 — overview & analysis",
+    ],
+  },
+  {
+    subject: "Ethics",
+    icon: "scale",
+    lectures: [
+      "Basic concepts — ethics, morality, values, integrity & sources of ethics",
+      "Schools of ethics — deontology, teleology, consequentialism, Kantianism, hedonism",
+      "Western Thinkers (I) — Socrates, Plato, Aristotle",
+      "Western Thinkers (II) — Bentham, J.S. Mill, Machiavelli, Kant",
+      "Western Thinkers (III) — Karl Marx, Gramsci",
+      "Indian Thinkers — Gandhi, Ambedkar, Vivekananda",
+      "Emotional Intelligence — concept, components, utilities",
+      "Attitude — concept, components, functions; moral & political attitude",
+      "Ethics in International Relations — war ethics, international funding",
+      "Corruption in India — extent, dimensions & response",
+      "Corporate Governance & CSR",
+      "Codes of ethics — doctors, journalists, ministers",
+      "Corruption in politics — reasons & solutions",
+      "Ethics in Hinduism, Buddhism, Sikhism, Jainism & Islam",
+    ],
+  },
+  {
+    subject: "Science & Technology",
+    icon: "atom",
+    lectures: [
+      "Basics of Space Tech, Nanotechnology & Robotics",
+      "Superconductors, Artificial Intelligence, Nuclear Technology",
+      "Defence Tech — Prithvi, Trishul, Nag, Akash, Agni, Shaurya, Astra, BrahMos",
+      "Intellectual Property Rights — copyright, trademarks, patents, design, trade secrets",
+      "Biotechnology — genetic engineering, DNA sequencing, biofuels, gene therapy",
+      "Contemporary innovations — Chandrayaan, Aditya, Gaganyaan",
+    ],
+  },
+  {
+    subject: "International Relations",
+    icon: "globe",
+    lectures: [
+      "World Order — from Billiard Ball Model to Multipolar World",
+      "Key IR theories — Realism, Liberalism, Marxism, Feminism, Constructivism",
+      "Key determinants of India's foreign policy",
+      "Foreign policies — NAM, Look East, Gujral Doctrine, Act East, Neighbourhood First, Think West",
+      "Diplomacy — soft power, hard power, nuclear, para, diaspora diplomacy",
+      "India's relations with neighbours — Pakistan, Bangladesh, Nepal, Sri Lanka, Afghanistan",
+      "Evolution of India-US relations",
+      "Evolution of India-Russia relations",
+      "Evolution of India-China relations",
+      "Evolution of India-Europe relations",
+      "Evolution of India-West Africa relations",
+      "Global groups — BRICS, SCO, NATO, QUAD, G20, OECD, OPEC, ASEAN, SAARC, BIMSTEC",
+      "Global institutions — UN, UNSC, IMF, World Bank, WTO, WHO",
+      "Key global issues — terrorism, South China Sea, BRI, refugee crisis, climate change",
+      "India's ambition of global superpower — prospects & challenges",
+      "Key concepts — Nuclear Peace Theory, Democratic Peace Theory, MAD, national interest, game theory",
+    ],
+  },
+  {
+    subject: "Post-Independence History",
+    icon: "history",
+    lectures: [
+      "Prime Ministers of India & key events",
+      "Formation of States & current demands of statehood",
+      "Three-Language Formula & language politics in contemporary India",
+      "Breakdown of the Congress system & rise of regional parties",
+      "Green Revolution — evolution & impact",
+      "Land Reforms Movement in India",
+      "Democracy in Crisis — JP Movement & Emergency",
+      "Regionalism in India — Regionalism vs Nationalism",
+    ],
+  },
+];
+---
+<Layout title="FOCUS SCHOOL — Flagship UPSC Programme for School Students">
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-cream)]">
+    <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(circle at 15% 20%, #f5a623 0, transparent 50%), radial-gradient(circle at 85% 80%, #f5a623 0, transparent 45%);"></div>
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-20 lg:pt-28 pb-20 lg:pb-28">
+      <span class="chip !bg-[var(--color-gold)] !text-[var(--color-ink)]">Flagship Programme</span>
+      <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-serif leading-[1.02]">
+        FOCUS <span class="text-[var(--color-gold)]">SCHOOL</span>
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-[rgba(250,246,236,0.82)] max-w-3xl leading-relaxed">
+        Our most ambitious course. Crafted for school students who are already dreaming in the language of civil service — and who want a decade of preparation compounding quietly in their favour.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="#curriculum" class="btn-primary !bg-[var(--color-gold)] !text-[var(--color-ink)] hover:!bg-[var(--color-cream)]">
+          Jump to curriculum
+        </a>
+        <a href="/contact" class="btn-ghost !border-[var(--color-cream)] !text-[var(--color-cream)] hover:!bg-[var(--color-cream)] hover:!text-[var(--color-ink)]">Enrol your child</a>
+      </div>
+
+      <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {[
+          { k: "65+", v: "Structured Lectures" },
+          { k: "6", v: "Core UPSC Subjects" },
+          { k: "Class IX+", v: "Eligibility" },
+          { k: "Flexible", v: "Batch Schedule" },
+        ].map((s) => (
+          <div class="border-l-2 border-[var(--color-gold)] pl-4">
+            <div class="font-serif text-3xl">{s.k}</div>
+            <div class="mt-1 text-xs uppercase tracking-widest text-[rgba(250,246,236,0.65)]">{s.v}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY FOCUS -->
+  <section class="py-20 lg:py-24">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-5 gap-12">
+      <div class="lg:col-span-2">
+        <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Why FOCUS SCHOOL</p>
+        <h2 class="mt-3 text-3xl sm:text-4xl">Start early. Think deep. Stay ahead.</h2>
+      </div>
+      <div class="lg:col-span-3 space-y-6">
+        {[
+          { t: "Built for young minds", b: "A curriculum that respects the school timetable — structured, bite-sized, and paced around board exam cycles." },
+          { t: "Skills, not just syllabus", b: "Critical thinking, analytical reasoning and effective communication — skills that pay off in school, college and UPSC alike." },
+          { t: "Mentorship from Day One", b: "Regular interactions with Mr. Ajay Sah and senior faculty who've taught at GS Score, Next IAS and Chanakya IAS." },
+          { t: "Foundation that compounds", b: "The subjects students learn here — Ethics, IR, Polity — stay relevant right till the Mains and Interview stages." },
+        ].map((i) => (
+          <div class="card p-6 flex gap-5">
+            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] text-[var(--color-ink)] flex items-center justify-center font-serif flex-none">★</div>
+            <div>
+              <h3 class="text-lg">{i.t}</h3>
+              <p class="mt-1.5 text-sm text-[var(--color-muted)] leading-relaxed">{i.b}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum" class="py-20 lg:py-24 bg-[var(--color-cream-deep)]/60">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Full Curriculum</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Six subjects. Sixty-five-plus lectures.</h2>
+      <p class="mt-4 max-w-2xl text-[var(--color-muted)]">
+        Every subject below unfolds through a structured set of lectures designed for conceptual clarity and exam-readiness.
+      </p>
+
+      <div class="mt-12 space-y-4">
+        {curriculum.map((s, i) => (
+          <details class="card overflow-hidden" open={i === 0}>
+            <summary class="px-6 py-5 flex items-center justify-between gap-6 hover:bg-[var(--color-gold-soft)]/30 transition-colors">
+              <div class="flex items-center gap-4">
+                <span class="font-serif text-2xl text-[var(--color-gold-deep)] w-10">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 class="text-xl sm:text-2xl">{s.subject}</h3>
+                  <p class="text-xs text-[var(--color-muted)] mt-1">{s.lectures.length} lectures</p>
+                </div>
+              </div>
+              <span class="chevron text-3xl leading-none text-[var(--color-gold-deep)] transition-transform">+</span>
+            </summary>
+            <div class="px-6 pb-6 pt-0">
+              <div class="hairline mb-5"></div>
+              <ol class="grid md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                {s.lectures.map((l, idx) => (
+                  <li class="flex gap-3">
+                    <span class="text-xs text-[var(--color-gold-deep)] font-semibold mt-0.5 flex-none w-6">L{idx + 1}</span>
+                    <span class="text-[var(--color-ink-soft)]">{l}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8">
+      <div class="card p-10 md:p-14 text-center bg-gradient-to-br from-[var(--color-cream-deep)] to-[var(--color-gold-soft)]">
+        <h2 class="text-3xl sm:text-4xl">Give your child a ten-year head start.</h2>
+        <p class="mt-4 text-[var(--color-ink-soft)] max-w-2xl mx-auto">
+          Book a counselling session at our New Delhi centre — we'll walk you through the batch structure, fees, and how FOCUS SCHOOL fits alongside your child's school life.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="/contact" class="btn-primary">Book a Counselling Call</a>
+          <a href="tel:+911141234567" class="btn-ghost">+91 11 4123 4567</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

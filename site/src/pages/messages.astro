@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const messages = [
+  {
+    quote:
+      "Knowledge IAS taught me how to read a newspaper — not just to glance, but to build a mental map. That single habit carried me through Prelims and Mains.",
+    name: "A. Iyer",
+    role: "IAS · Batch of 2021",
+  },
+  {
+    quote:
+      "FOCUS SCHOOL made me fall in love with the idea of public service at fifteen. By the time I sat for CSE, I had already spent years thinking like an administrator.",
+    name: "R. Verma",
+    role: "IPS · Batch of 2023",
+  },
+  {
+    quote:
+      "What sets the academy apart is the quality of mentorship. Mr. Ajay Sah answered my essay drafts personally, well past midnight, week after week.",
+    name: "M. Nair",
+    role: "IFS · Batch of 2020",
+  },
+  {
+    quote:
+      "The Ethics classes changed how I read, wrote and reasoned. They don't just prepare you for GS IV — they prepare you for the service itself.",
+    name: "S. Khan",
+    role: "IRS · Batch of 2022",
+  },
+  {
+    quote:
+      "If I had to recommend one academy to a school student serious about the Civil Services, it would be Knowledge IAS. The head start is real.",
+    name: "P. Das",
+    role: "IAS · Batch of 2019",
+  },
+  {
+    quote:
+      "Coming from a Tier-3 town, I worried I'd be out of my depth. The faculty here treated my doubts with the same seriousness as those of toppers.",
+    name: "K. Reddy",
+    role: "IRS · Batch of 2022",
+  },
+];
+---
+<Layout title="Messages from Civil Servants — Knowledge IAS Academy">
+  <section class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-12">
+    <span class="chip">Messages from Civil Servants</span>
+    <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
+      Words from those who <span class="gold-underline">wear the tricolour</span>.
+    </h1>
+    <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
+      Messages from serving IAS, IPS, IFS and IRS officers who began their journey with Knowledge IAS Academy.
+    </p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-5 sm:px-8 pb-24">
+    <div class="grid md:grid-cols-2 gap-6">
+      {messages.map((m, i) => (
+        <figure class="card p-8 flex flex-col">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 opacity-70">
+            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h3c-.25 2.89-3.5 4-3.5 4"></path>
+            <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h3c-.25 2.89-3.5 4-3.5 4"></path>
+          </svg>
+          <blockquote class="font-serif text-lg sm:text-xl leading-snug text-[var(--color-ink)]">
+            "{m.quote}"
+          </blockquote>
+          <figcaption class="mt-6 pt-6 border-t border-[var(--color-line)] flex items-center gap-4">
+            <div class="h-11 w-11 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center font-serif text-[var(--color-ink)]">{m.name.split(".")[0]}</div>
+            <div>
+              <p class="font-medium text-[var(--color-ink)]">{m.name}</p>
+              <p class="text-xs uppercase tracking-widest text-[var(--color-muted)] mt-0.5">{m.role}</p>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <p class="mt-10 text-center text-sm text-[var(--color-muted)]">Placeholder messages — real officer testimonials will be added soon.</p>
+  </section>
+</Layout>

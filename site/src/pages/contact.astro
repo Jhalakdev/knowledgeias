@@ -1,0 +1,230 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Contact Us — Knowledge IAS Academy">
+  <section class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-10">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-5">
+        <span class="chip">Contact Us</span>
+        <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-[1.05]">
+          Let's plan your <span class="gold-underline">UPSC journey</span> together.
+        </h1>
+        <p class="mt-6 text-lg text-[var(--color-muted)] leading-relaxed">
+          Tell us a little about yourself and we'll get back within one working day. Or walk into our New Delhi centre for a quick counselling session — no appointment needed.
+        </p>
+
+        <div class="mt-10 space-y-6">
+          <div class="flex gap-4">
+            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center flex-none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-gold-deep)] font-semibold">Visit Us</p>
+              <address class="mt-1 not-italic text-[var(--color-ink-soft)] leading-relaxed">
+                Knowledge IAS Academy<br />
+                2nd Floor, 21-B, Old Rajinder Nagar<br />
+                New Delhi — 110060, India
+              </address>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center flex-none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-gold-deep)] font-semibold">Call Us</p>
+              <p class="mt-1 text-[var(--color-ink-soft)]">
+                <a href="tel:+911141234567" class="hover:text-[var(--color-gold-deep)]">+91 11 4123 4567</a><br />
+                <a href="tel:+919810000000" class="hover:text-[var(--color-gold-deep)]">+91 98100 00000</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center flex-none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-gold-deep)] font-semibold">Email Us</p>
+              <p class="mt-1 text-[var(--color-ink-soft)]">
+                <a href="mailto:info@knowledgeias.in" class="hover:text-[var(--color-gold-deep)]">info@knowledgeias.in</a><br />
+                <a href="mailto:admissions@knowledgeias.in" class="hover:text-[var(--color-gold-deep)]">admissions@knowledgeias.in</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center flex-none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-gold-deep)] font-semibold">Office Hours</p>
+              <p class="mt-1 text-[var(--color-ink-soft)]">Mon – Sat · 9:00 am to 7:00 pm<br />Sunday · By appointment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <form id="contact-form" class="card p-7 sm:p-10" novalidate>
+          <div class="flex items-center justify-between">
+            <h2 class="font-serif text-2xl">Send us a message</h2>
+            <span class="text-xs text-[var(--color-muted)]">Takes ~30 seconds</span>
+          </div>
+          <div class="hairline my-6"></div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <label class="block">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Full Name *</span>
+              <input
+                type="text"
+                name="name"
+                required
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors text-[var(--color-ink)]"
+                placeholder="Your name"
+              />
+            </label>
+
+            <label class="block">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Phone *</span>
+              <input
+                type="tel"
+                name="phone"
+                required
+                inputmode="tel"
+                pattern="[0-9+\- ]{7,}"
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors"
+                placeholder="+91"
+              />
+            </label>
+
+            <label class="block sm:col-span-2">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Email *</span>
+              <input
+                type="email"
+                name="email"
+                required
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label class="block">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">I am a *</span>
+              <select
+                name="role"
+                required
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors"
+              >
+                <option value="">Select one</option>
+                <option>School Student</option>
+                <option>College Student</option>
+                <option>Graduate / Working Professional</option>
+                <option>Parent / Guardian</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <label class="block">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Interested In *</span>
+              <select
+                name="programme"
+                required
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors"
+              >
+                <option value="">Select one</option>
+                <option>FOCUS SCHOOL (flagship)</option>
+                <option>UPSC Prelims Programme</option>
+                <option>UPSC Mains Programme</option>
+                <option>Counselling Session</option>
+                <option>General Enquiry</option>
+              </select>
+            </label>
+
+            <label class="block sm:col-span-2">
+              <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Your Message</span>
+              <textarea
+                name="message"
+                rows="4"
+                class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors resize-none"
+                placeholder="Tell us a bit about your goals, class / year, and any questions you have."
+              ></textarea>
+            </label>
+          </div>
+
+          <!-- honeypot -->
+          <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <p class="text-xs text-[var(--color-muted)]">By submitting, you agree to be contacted by our counselling team.</p>
+            <button type="submit" id="submit-btn" class="btn-primary">
+              <span id="submit-label">Send Message</span>
+              <svg id="submit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+
+          <div id="form-status" class="mt-6 hidden" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map placeholder -->
+  <section class="max-w-7xl mx-auto px-5 sm:px-8 py-20">
+    <div class="card overflow-hidden aspect-[16/7] relative bg-[var(--color-cream-deep)] flex items-center justify-center">
+      <div class="absolute inset-0 opacity-[0.25]" style="background-image: repeating-linear-gradient(45deg, #d98e12 0 1px, transparent 1px 18px), repeating-linear-gradient(-45deg, #d98e12 0 1px, transparent 1px 18px);"></div>
+      <div class="relative text-center px-6">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <p class="mt-4 font-serif text-2xl">2nd Floor, 21-B, Old Rajinder Nagar, New Delhi</p>
+        <p class="mt-2 text-sm text-[var(--color-muted)]">Embedded map will appear here once the final location is confirmed.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  const btn = document.getElementById("submit-btn");
+  const label = document.getElementById("submit-label");
+
+  function show(type, msg) {
+    status.className = "mt-6 rounded-xl p-4 text-sm " + (
+      type === "ok"
+        ? "bg-[var(--color-gold-soft)] text-[var(--color-ink)]"
+        : "bg-red-50 text-red-700 border border-red-200"
+    );
+    status.textContent = msg;
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.classList.remove("hidden");
+    status.className = "mt-6 text-sm text-[var(--color-muted)]";
+    status.textContent = "Sending…";
+
+    const data = new FormData(form);
+    if (data.get("company")) return; // honeypot
+
+    const payload = Object.fromEntries(data.entries());
+    delete payload.company;
+
+    btn.disabled = true;
+    label.textContent = "Sending…";
+
+    try {
+      // Local/dev: no backend yet — simulate success and log payload.
+      // When deployed, replace this block with a POST to /api/contact or Formspree/Resend.
+      await new Promise((r) => setTimeout(r, 650));
+      console.info("[contact] payload", payload);
+      form.reset();
+      show("ok", "Thank you — your message has been received. Our counselling team will reach out within one working day.");
+    } catch (err) {
+      show("err", "Something went wrong. Please call us at +91 11 4123 4567 or email info@knowledgeias.in.");
+    } finally {
+      btn.disabled = false;
+      label.textContent = "Send Message";
+    }
+  });
+</script>

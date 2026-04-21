@@ -1,0 +1,222 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const posts = [
+  "Indian Administrative Service (IAS)",
+  "Indian Foreign Service (IFS)",
+  "Indian Police Service (IPS)",
+  "Indian Audit & Accounts Service, Group A",
+  "Indian Civil Accounts Service, Group A",
+  "Indian Corporate Law Service, Group A",
+  "Indian Defence Accounts Service, Group A",
+  "Indian Defence Estates Service, Group A",
+  "Indian Information Service, Group A",
+  "Indian Postal Service, Group A",
+  "Indian P&T Accounts & Finance Service, Group A",
+  "Indian Railway Protection Force Service, Group A",
+  "Indian Revenue Service (Customs & Indirect Taxes), Group A",
+  "Indian Revenue Service (Income Tax), Group A",
+  "Indian Trade Service, Group A",
+  "Indian Railway Management Service, Group A",
+  "Armed Forces Headquarters Civil Service, Group B",
+  "DANICS, Group B",
+  "DANIPS, Group B",
+  "Pondicherry Civil Service (PONDICS), Group B",
+  "Pondicherry Police Service (PONDIPS), Group B",
+];
+
+const prelimsTable = [
+  { subject: "General Studies - I", syllabus: "Polity, History, Geography, Economics, Science, Current Affairs", marks: "200 (100 Qs)", duration: "2 hrs", nature: "Considered for merit" },
+  { subject: "GS - II / CSAT", syllabus: "Comprehension, Logical Reasoning, Mental Ability, Basic Numeracy", marks: "200 (80 Qs)", duration: "2 hrs", nature: "Qualifying (33% cut-off)" },
+];
+
+const mainsQualifying = [
+  { paper: "Paper-A", subject: "One Indian Language (8th Schedule)", marks: 300 },
+  { paper: "Paper-B", subject: "English", marks: 300 },
+];
+
+const mainsMerit = [
+  { paper: "Paper-I", subject: "Essay", marks: 250 },
+  { paper: "Paper-II", subject: "GS-I — Indian Heritage, History, Geography, Society", marks: 250 },
+  { paper: "Paper-III", subject: "GS-II — Governance, Constitution, Polity, IR", marks: 250 },
+  { paper: "Paper-IV", subject: "GS-III — Tech, Economy, Environment, Security", marks: 250 },
+  { paper: "Paper-V", subject: "GS-IV — Ethics, Integrity, Aptitude", marks: 250 },
+  { paper: "Paper-VI", subject: "Optional Subject — Paper 1", marks: 250 },
+  { paper: "Paper-VII", subject: "Optional Subject — Paper 2", marks: 250 },
+];
+
+const faqs = [
+  {
+    q: "What is UPSC?",
+    a: "Union Public Service Commission — a constitutional body established under Article 315 of the Constitution of India. It conducts examinations and recruits candidates for various Group A and B central government services including IAS, IPS, IFS and IRS.",
+  },
+  {
+    q: "Are UPSC and the Civil Services Examination (CSE) the same?",
+    a: "Technically no. UPSC conducts many exams (CDS, NDA, CAPF, Engineering Services, etc.). CSE is one of them — but because it is the most prestigious and widely known, the two terms are often used interchangeably.",
+  },
+  {
+    q: "What is the relationship between UPSC and the IAS exam?",
+    a: "UPSC conducts the Civil Services Examination every year. Through this single exam, candidates are selected for various services — IAS, IPS, IFS, IRS, and others. Service allocation depends on rank, preferences and vacancies.",
+  },
+  {
+    q: "How many posts are available through UPSC?",
+    a: "Vacancies vary each year based on departmental needs. On average, around 900–1100 candidates are selected annually through the Civil Services Examination.",
+  },
+  {
+    q: "How does one become an IAS or IPS officer?",
+    a: "Appear for CSE, secure a high rank in the final merit list, and fill in service preferences during application. Final service allocation depends on rank, category, preferences and vacancies.",
+  },
+  {
+    q: "What is the age limit of the exam?",
+    a: "General: 32 years max, 6 attempts. OBC: 35 years, 9 attempts. SC/ST: 37 years with unlimited attempts.",
+  },
+  {
+    q: "What is the examination pattern of UPSC CSE?",
+    a: "Three stages — Preliminary (objective, screening), Mains (descriptive, tests depth and writing skills), and Interview/Personality Test (assesses personality, leadership and suitability for civil services).",
+  },
+];
+---
+<Layout title="About UPSC & Civil Services Examination — Knowledge IAS">
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-8">
+    <span class="chip">About UPSC</span>
+    <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
+      The Civil Services Examination, <span class="gold-underline">explained clearly.</span>
+    </h1>
+    <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
+      India is a parliamentary democracy with a well-established administrative system. Among the many bodies that recruit professional administrators, the Union Public Service Commission stands tall — and the Civil Services Examination it conducts is the most coveted of them all.
+    </p>
+  </section>
+
+  <!-- Historical Genesis -->
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-12 prose-readable">
+    <h2 class="text-3xl">Historical Genesis of UPSC</h2>
+    <div class="hairline my-6"></div>
+    <p>
+      Civil Servants for the East India Company used to be nominated by the Directors of the Company and trained at Haileybury College in London. Following Lord Macaulay's Report of the Select Committee of British Parliament, the concept of a merit-based modern Civil Service in India was introduced in 1854. A Civil Service Commission was set up in London and competitive examinations began in 1855.
+    </p>
+    <p>
+      Initially the examinations were conducted only in London. In 1864, Shri Satyendranath Tagore — brother of Rabindranath Tagore — became the first Indian to succeed. From 1922 onwards, the exam began to be held in India too — first in Allahabad, later in Delhi, with the setting up of the Federal Public Service Commission.
+    </p>
+    <p>
+      With the passing of the Government of India Act 1935, the Federal Public Service Commission was formed on 1 April 1937. With the inauguration of the Constitution of India on 26 January 1950, it was renamed the <strong>Union Public Service Commission</strong> by virtue of Article 378.
+    </p>
+  </section>
+
+  <!-- Posts under UPSC -->
+  <section class="max-w-7xl mx-auto px-5 sm:px-8 py-16">
+    <h2 class="text-3xl text-center">Posts Under UPSC</h2>
+    <div class="hairline my-6 max-w-md mx-auto"></div>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {posts.map((p) => (
+        <div class="card px-5 py-4 flex items-center gap-3 text-sm">
+          <span class="h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none"></span>
+          <span>{p}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Exam Pattern -->
+  <section class="bg-[var(--color-ink)] text-[var(--color-cream)] py-20">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold)] font-semibold">Examination Pattern</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl text-[var(--color-cream)]">Three stages. One merit list.</h2>
+
+      <!-- Stage I -->
+      <div class="mt-10">
+        <div class="flex items-baseline gap-4">
+          <span class="font-serif text-5xl text-[var(--color-gold)]">I</span>
+          <h3 class="text-2xl text-[var(--color-cream)]">Preliminary Examination <span class="text-sm uppercase tracking-widest text-[rgba(250,246,236,0.55)]">· Objective</span></h3>
+        </div>
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left text-[var(--color-gold)] uppercase tracking-wider text-xs border-b border-white/10">
+              <tr>
+                <th class="py-3 pr-4">Subject</th>
+                <th class="py-3 pr-4">Syllabus</th>
+                <th class="py-3 pr-4">Marks</th>
+                <th class="py-3 pr-4">Duration</th>
+                <th class="py-3 pr-4">Nature</th>
+              </tr>
+            </thead>
+            <tbody class="text-[rgba(250,246,236,0.85)]">
+              {prelimsTable.map((r) => (
+                <tr class="border-b border-white/5 align-top">
+                  <td class="py-4 pr-4 font-medium">{r.subject}</td>
+                  <td class="py-4 pr-4">{r.syllabus}</td>
+                  <td class="py-4 pr-4">{r.marks}</td>
+                  <td class="py-4 pr-4">{r.duration}</td>
+                  <td class="py-4 pr-4">{r.nature}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-xs text-[rgba(250,246,236,0.6)]">Note: Each incorrect answer carries a penalty of 1/3rd of the assigned marks. No penalty for un-attempted questions.</p>
+      </div>
+
+      <!-- Stage II -->
+      <div class="mt-16">
+        <div class="flex items-baseline gap-4">
+          <span class="font-serif text-5xl text-[var(--color-gold)]">II</span>
+          <h3 class="text-2xl text-[var(--color-cream)]">Main Examination <span class="text-sm uppercase tracking-widest text-[rgba(250,246,236,0.55)]">· Written / Subjective</span></h3>
+        </div>
+
+        <h4 class="mt-8 text-sm uppercase tracking-[0.22em] text-[var(--color-gold)]">Qualifying Papers <span class="text-[rgba(250,246,236,0.5)] normal-case tracking-normal">(25% minimum required)</span></h4>
+        <div class="mt-4 grid sm:grid-cols-2 gap-3">
+          {mainsQualifying.map((p) => (
+            <div class="border border-white/10 rounded-xl p-5 bg-white/5">
+              <div class="flex items-center justify-between text-xs uppercase tracking-widest text-[rgba(250,246,236,0.6)]">
+                <span>{p.paper}</span><span>{p.marks} marks</span>
+              </div>
+              <p class="mt-2 text-[var(--color-cream)]">{p.subject}</p>
+            </div>
+          ))}
+        </div>
+
+        <h4 class="mt-10 text-sm uppercase tracking-[0.22em] text-[var(--color-gold)]">Papers counted for merit</h4>
+        <div class="mt-4 grid md:grid-cols-2 gap-3">
+          {mainsMerit.map((p) => (
+            <div class="border border-white/10 rounded-xl p-5 bg-white/5">
+              <div class="flex items-center justify-between text-xs uppercase tracking-widest text-[rgba(250,246,236,0.6)]">
+                <span>{p.paper}</span><span>{p.marks} marks · 3 hrs</span>
+              </div>
+              <p class="mt-2 text-[var(--color-cream)]">{p.subject}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-6 text-sm text-[rgba(250,246,236,0.75)]"><strong class="text-[var(--color-gold)]">Total Marks (Mains):</strong> 1,750</p>
+      </div>
+
+      <!-- Stage III -->
+      <div class="mt-16">
+        <div class="flex items-baseline gap-4">
+          <span class="font-serif text-5xl text-[var(--color-gold)]">III</span>
+          <h3 class="text-2xl text-[var(--color-cream)]">Interview <span class="text-sm uppercase tracking-widest text-[rgba(250,246,236,0.55)]">· Personality Test</span></h3>
+        </div>
+        <p class="mt-4 text-[rgba(250,246,236,0.82)] max-w-2xl">Total marks: <strong class="text-[var(--color-gold)]">275</strong>. Only those who qualify the Mains stage are invited for the interview.</p>
+        <div class="mt-6 inline-flex items-center gap-4 bg-[var(--color-gold)] text-[var(--color-ink)] px-6 py-4 rounded-2xl">
+          <span class="text-xs uppercase tracking-widest">Final merit</span>
+          <span class="font-serif text-2xl">1,750 + 275 = 2,025 marks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="max-w-4xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+    <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">FAQs</p>
+    <h2 class="mt-3 text-3xl sm:text-4xl">Frequently asked questions</h2>
+    <div class="mt-10 divide-y divide-[var(--color-line)] border-y border-[var(--color-line)]">
+      {faqs.map((f) => (
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-6">
+            <h3 class="text-lg text-[var(--color-ink)]">{f.q}</h3>
+            <span class="chevron inline-block transition-transform text-[var(--color-gold-deep)] text-2xl leading-none">+</span>
+          </summary>
+          <p class="mt-4 text-[var(--color-muted)] leading-relaxed">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,78 @@
+---
+const { pathname } = Astro.url;
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/upsc", label: "About UPSC" },
+  { href: "/focus-school", label: "Focus School" },
+  { href: "/directors-message", label: "Director" },
+  { href: "/messages", label: "Civil Servants" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/contact", label: "Contact" },
+];
+const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+---
+
+<header class="sticky top-0 z-40 backdrop-blur-md bg-[rgba(250,246,236,0.9)] border-b border-[var(--color-line)]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 -my-2" aria-label="Knowledge IAS home">
+      <img src="/logo.png" alt="Knowledge IAS" class="h-14 sm:h-16 w-auto object-contain" />
+      <span class="sr-only">Knowledge IAS</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`px-3 py-2 text-sm font-medium rounded-full transition-colors ${
+            isActive(item.href)
+              ? "text-[var(--color-ink)] bg-[var(--color-gold-soft)]"
+              : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:bg-[rgba(245,166,35,0.12)]"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="/contact" class="btn-primary text-sm !py-2 !px-4">Enroll Now</a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      class="lg:hidden p-2 rounded-full hover:bg-[var(--color-gold-soft)] transition-colors"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-[var(--color-line)] bg-[var(--color-cream)]">
+    <nav class="px-5 py-4 flex flex-col gap-1" aria-label="Mobile primary">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`px-3 py-2.5 rounded-lg text-sm font-medium ${
+            isActive(item.href) ? "bg-[var(--color-gold-soft)] text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/contact" class="btn-primary mt-3 justify-center">Enroll Now</a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("hidden") === false;
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+  }
+</script>
