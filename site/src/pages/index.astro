@@ -2,9 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 
 const stats = [
-  { value: "10+", label: "Years of UPSC Mentorship" },
-  { value: "900+", label: "Annual CSE Selections (PAN India)" },
-  { value: "IIT · NIT · BHU", label: "Seminars & Webinars Delivered" },
+  { value: "10+", label: "Years of Mentorship", icon: "star" },
+  { value: "900+", label: "Annual CSE Selections", icon: "award" },
+  { value: "IIT · NIT · BHU", label: "Seminars Delivered", icon: "mic" },
 ];
 
 const pillars = [
@@ -13,19 +13,31 @@ const pillars = [
     title: "FOCUS SCHOOL",
     body: "A specialised course for school-going students dreaming of a Civil Services career — built to lay a decade-long foundation before the exam even begins.",
     href: "/focus-school",
+    icon: "cap",
+    featured: true,
   },
   {
     tag: "Mentor-Led",
     title: "Director's Message",
     body: "A personal note from Mr. Ajay Sah — Director and Founder — on why starting early matters, and how we shape aspirants, not just students.",
     href: "/directors-message",
+    icon: "pen",
+    featured: false,
   },
   {
     tag: "Know the Exam",
     title: "About UPSC",
     body: "A complete primer on the Civil Services Examination — posts under UPSC, stage-wise pattern, marking scheme and frequently asked questions.",
     href: "/upsc",
+    icon: "book",
+    featured: false,
   },
+];
+
+// Taught-at institutes (marquee)
+const institutes = [
+  "GS Score", "Next IAS", "Chanakya IAS", "Target UPSC", "Quest IAS",
+  "IIT Delhi", "IIT Bombay", "NIT Trichy", "BHU", "St. Stephen's College", "Hindu College",
 ];
 ---
 
@@ -33,20 +45,50 @@ const pillars = [
   <!-- HERO -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10">
-      <div class="absolute top-0 right-0 w-[55%] h-[90%] bg-[radial-gradient(ellipse_at_top_right,rgba(245,166,35,0.18),transparent_70%)]"></div>
-      <div class="absolute bottom-0 left-0 w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(245,166,35,0.08),transparent_70%)]"></div>
+      <div class="absolute inset-0 grid-pattern opacity-60"></div>
+      <div class="absolute top-0 right-0 w-[55%] h-[95%] bg-[radial-gradient(ellipse_at_top_right,rgba(245,166,35,0.22),transparent_70%)]"></div>
+      <div class="absolute -top-10 -left-10 w-[60%] h-[60%] bg-[radial-gradient(ellipse_at_top_left,rgba(245,166,35,0.10),transparent_70%)]"></div>
+      <div class="absolute bottom-0 left-0 w-[50%] h-[50%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(245,166,35,0.08),transparent_70%)]"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-20 lg:pt-24 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-7">
-        <span class="chip">Premier UPSC Academy · New Delhi</span>
-        <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-[1.05] font-serif">
-          Where <span class="gold-underline">future civil servants</span> begin their story.
+    <!-- Decorative Ashoka-chakra style ring -->
+    <div class="absolute top-10 right-[4%] hidden xl:block opacity-[0.08] -z-10" aria-hidden="true">
+      <svg width="320" height="320" viewBox="0 0 100 100" class="spin-slow">
+        <g fill="none" stroke="currentColor" stroke-width="0.4" class="text-[var(--color-ink)]">
+          <circle cx="50" cy="50" r="48"/>
+          <circle cx="50" cy="50" r="36"/>
+          <circle cx="50" cy="50" r="24"/>
+          {Array.from({ length: 24 }).map((_, i) => {
+            const a = (i * 15 * Math.PI) / 180;
+            return (
+              <line
+                x1={50 + Math.cos(a) * 24}
+                y1={50 + Math.sin(a) * 24}
+                x2={50 + Math.cos(a) * 48}
+                y2={50 + Math.sin(a) * 48}
+              />
+            );
+          })}
+        </g>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-14 pb-24 lg:pt-20 lg:pb-32 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div class="lg:col-span-7 relative">
+        <div data-reveal>
+          <span class="chip"><span class="dot"></span>Premier UPSC Academy · New Delhi</span>
+        </div>
+
+        <h1 data-reveal data-reveal-delay="1" class="mt-6 text-[2.5rem] sm:text-5xl lg:text-[4.25rem] leading-[1.02] font-serif">
+          Where <span class="gold-underline-animated">future civil servants</span><br class="hidden sm:block" />
+          <span class="italic text-[var(--color-ink-soft)]">begin their story.</span>
         </h1>
-        <p class="mt-6 text-lg text-[var(--color-muted)] leading-relaxed max-w-xl">
+
+        <p data-reveal data-reveal-delay="2" class="mt-7 text-lg text-[var(--color-muted)] leading-relaxed max-w-xl">
           Knowledge IAS Academy is a premier coaching institute preparing aspirants for the UPSC Civil Services Examination — with structured mentorship, a decade of faculty experience, and our flagship programme built exclusively for school students.
         </p>
-        <div class="mt-8 flex flex-wrap items-center gap-3">
+
+        <div data-reveal data-reveal-delay="3" class="mt-9 flex flex-wrap items-center gap-3">
           <a href="/focus-school" class="btn-primary">
             Explore FOCUS SCHOOL
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -54,64 +96,142 @@ const pillars = [
           <a href="/contact" class="btn-ghost">Book a Counselling Call</a>
         </div>
 
-        <dl class="mt-14 grid grid-cols-3 gap-6 max-w-xl">
+        <dl data-reveal data-reveal-delay="4" class="mt-14 grid grid-cols-3 gap-6 max-w-xl">
           {stats.map((s) => (
-            <div>
-              <dt class="text-2xl sm:text-3xl font-serif text-[var(--color-ink)]">{s.value}</dt>
-              <dd class="mt-1 text-xs uppercase tracking-wider text-[var(--color-muted)]">{s.label}</dd>
+            <div class="relative">
+              <div class="absolute -left-3 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--color-gold)] to-transparent"></div>
+              <dt class="font-serif text-[1.75rem] sm:text-[2rem] leading-none text-[var(--color-ink)]">{s.value}</dt>
+              <dd class="mt-2 text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">{s.label}</dd>
             </div>
           ))}
         </dl>
       </div>
 
-      <div class="lg:col-span-5 relative">
-        <div class="relative aspect-[4/5] rounded-[2rem] overflow-hidden card">
-          <img
-            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=70"
-            alt="Students preparing for UPSC"
-            loading="eager"
-            class="absolute inset-0 w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-6 left-6 right-6 text-white">
-            <p class="text-xs uppercase tracking-[0.25em] text-[var(--color-gold)]">Flagship Programme</p>
-            <p class="mt-1 font-serif text-2xl">Built for tomorrow's administrators.</p>
+      <!-- Hero image + floating cards -->
+      <div class="lg:col-span-5 relative" data-reveal data-reveal-delay="2">
+        <div class="relative">
+          <div class="relative aspect-[4/5] rounded-[2rem] overflow-hidden card !p-0 border-[var(--color-line)] shadow-[0_30px_60px_-30px_rgba(11,11,11,0.35)]">
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1100&q=72"
+              alt="Students in a focused classroom discussion"
+              loading="eager"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 text-white">
+              <p class="text-[10px] uppercase tracking-[0.3em] text-[var(--color-gold)]">Flagship Programme</p>
+              <p class="mt-2 font-serif text-[1.6rem] leading-tight">Built for tomorrow's administrators.</p>
+            </div>
+
+            <!-- top gold ribbon -->
+            <div class="absolute top-5 left-0">
+              <span class="ribbon">Focus School</span>
+            </div>
+          </div>
+
+          <!-- Director card (desktop only) -->
+          <div class="absolute -left-6 -bottom-8 w-60 card card-interactive p-5 hidden md:block float-soft">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-full bg-[var(--color-ink)] text-[var(--color-gold)] flex items-center justify-center font-serif text-lg">AS</div>
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Director</p>
+                <p class="font-serif text-lg leading-tight">Mr. Ajay Sah</p>
+              </div>
+            </div>
+            <p class="mt-3 text-xs text-[var(--color-muted)] leading-relaxed">
+              A decade of teaching across GS Score, Next IAS, Chanakya IAS &amp; more.
+            </p>
+          </div>
+
+          <!-- Students count card -->
+          <div class="absolute -right-4 top-8 w-44 card p-4 hidden md:block float-soft" style="animation-delay: -3s;">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Live Now</p>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="font-serif text-3xl">1,200+</span>
+              <span class="text-xs text-[var(--color-muted)]">aspirants</span>
+            </div>
+            <div class="mt-3 flex -space-x-2">
+              {[1,2,3,4].map((i) => (
+                <span class={`h-6 w-6 rounded-full border-2 border-white ${i === 1 ? 'bg-[var(--color-gold)]' : i === 2 ? 'bg-[var(--color-ink)]' : i === 3 ? 'bg-[var(--color-gold-deep)]' : 'bg-[var(--color-cream-deep)]'}`}></span>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="absolute -left-4 -bottom-6 w-56 card p-5 hidden md:block">
-          <p class="text-[11px] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Director</p>
-          <p class="mt-2 font-serif text-lg leading-tight">Mr. Ajay Sah</p>
-          <p class="mt-1 text-xs text-[var(--color-muted)] leading-relaxed">
-            A decade of teaching across GS Score, Next IAS, Chanakya, Target UPSC and more.
-          </p>
+    <!-- Taught-at marquee -->
+    <div class="relative border-y border-[var(--color-line)] bg-white/60 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-2 flex-none">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span class="text-[11px] uppercase tracking-[0.22em] text-[var(--color-muted)] font-semibold">Faculty taught at</span>
+        </div>
+        <div class="marquee flex-1">
+          <div class="marquee-track py-1">
+            {[...institutes, ...institutes].map((n) => (
+              <span class="font-serif text-lg text-[var(--color-ink-soft)] whitespace-nowrap flex items-center gap-6">
+                {n}
+                <span class="inline-block h-1 w-1 rounded-full bg-[var(--color-gold)]"></span>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PILLARS -->
-  <section class="py-20 lg:py-28">
+  <section class="py-24 lg:py-32 relative">
+    <div class="absolute inset-0 -z-10 opacity-40">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-40 bg-[radial-gradient(ellipse,rgba(245,166,35,0.10),transparent_70%)]"></div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6" data-reveal>
         <div class="max-w-xl">
-          <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">What we offer</p>
-          <h2 class="mt-3 text-3xl sm:text-4xl">A structured path to the Civil Services.</h2>
+          <div class="ornament mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            <span class="text-xs uppercase tracking-[0.22em] font-semibold">What we offer</span>
+          </div>
+          <h2 class="text-3xl sm:text-[2.5rem] leading-[1.1]">A structured path <span class="italic text-[var(--color-gold-deep)]">to the Civil Services.</span></h2>
         </div>
-        <p class="max-w-md text-[var(--color-muted)]">
+        <p class="max-w-md text-[var(--color-muted)] leading-relaxed">
           Everything at Knowledge IAS revolves around one idea — start early, build deeply, and leave nothing to chance.
         </p>
       </div>
 
-      <div class="mt-12 grid md:grid-cols-3 gap-6">
-        {pillars.map((p) => (
-          <a href={p.href} class="card p-7 group transition-transform hover:-translate-y-1">
+      <div class="mt-14 grid md:grid-cols-12 gap-5">
+        {pillars.map((p, i) => (
+          <a
+            href={p.href}
+            data-reveal
+            data-reveal-delay={String(i + 1)}
+            class={`card card-interactive card-gold-corner p-8 group relative ${p.featured ? "md:col-span-6 md:row-span-2 md:p-10" : "md:col-span-6"}`}
+          >
             <span class="chip">{p.tag}</span>
-            <h3 class="mt-5 text-2xl">{p.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{p.body}</p>
-            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-ink)] group-hover:text-[var(--color-gold-deep)]">
+
+            <div class="mt-6 flex items-start gap-5">
+              <div class={`flex-none rounded-2xl flex items-center justify-center ${p.featured ? "h-14 w-14 bg-[var(--color-ink)] text-[var(--color-gold)]" : "h-12 w-12 bg-[var(--color-gold-soft)] text-[var(--color-ink)]"}`}>
+                {p.icon === "cap" && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6"/><path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                )}
+                {p.icon === "pen" && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-6-6"/><path d="M2 2l7.586 7.586"/></svg>
+                )}
+                {p.icon === "book" && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                )}
+              </div>
+              <div>
+                <h3 class={`${p.featured ? "text-3xl" : "text-2xl"}`}>{p.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{p.body}</p>
+              </div>
+            </div>
+
+            <span class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-ink)] group-hover:text-[var(--color-gold-deep)]">
               Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </span>
           </a>
         ))}
@@ -120,58 +240,90 @@ const pillars = [
   </section>
 
   <!-- FOCUS SCHOOL HIGHLIGHT -->
-  <section class="relative py-20 lg:py-28 bg-[var(--color-ink)] text-[var(--color-cream)] overflow-hidden">
-    <div class="absolute inset-0 -z-0 opacity-[0.07]" style="background-image: radial-gradient(circle at 20% 30%, #f5a623 0, transparent 40%), radial-gradient(circle at 80% 70%, #f5a623 0, transparent 40%);"></div>
+  <section class="relative py-24 lg:py-32 bg-[var(--color-ink)] text-[var(--color-cream)] overflow-hidden">
+    <div class="absolute inset-0 -z-0 opacity-[0.08]" style="background-image: radial-gradient(circle at 20% 30%, #f5a623 0, transparent 40%), radial-gradient(circle at 80% 70%, #f5a623 0, transparent 40%);"></div>
+    <div class="absolute inset-0 jali-pattern opacity-40"></div>
+
+    <!-- Decorative large chakra -->
+    <div class="absolute -bottom-40 -right-40 opacity-[0.06]" aria-hidden="true">
+      <svg width="560" height="560" viewBox="0 0 100 100" class="spin-slow">
+        <g fill="none" stroke="currentColor" stroke-width="0.3" class="text-[var(--color-gold)]">
+          <circle cx="50" cy="50" r="48"/>
+          <circle cx="50" cy="50" r="32"/>
+          <circle cx="50" cy="50" r="16"/>
+          {Array.from({ length: 24 }).map((_, i) => {
+            const a = (i * 15 * Math.PI) / 180;
+            return (
+              <line
+                x1={50 + Math.cos(a) * 16}
+                y1={50 + Math.sin(a) * 16}
+                x2={50 + Math.cos(a) * 48}
+                y2={50 + Math.sin(a) * 48}
+              />
+            );
+          })}
+        </g>
+      </svg>
+    </div>
 
     <div class="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-7">
-        <span class="chip !bg-[var(--color-gold)] !text-[var(--color-ink)]">Spotlight · Flagship Programme</span>
-        <h2 class="mt-6 text-4xl sm:text-5xl leading-tight font-serif text-[var(--color-cream)]">
-          FOCUS <span class="text-[var(--color-gold)]">SCHOOL</span><br />
-          A head start, by design.
+      <div class="lg:col-span-7" data-reveal>
+        <span class="chip !bg-[var(--color-gold)] !text-[var(--color-ink)]">
+          <span class="dot !bg-[var(--color-ink)] !shadow-none"></span>Spotlight · Flagship
+        </span>
+        <h2 class="mt-6 text-[2.5rem] sm:text-[3.25rem] leading-[1.02] font-serif text-[var(--color-cream)]">
+          FOCUS <span class="text-[var(--color-gold)] italic">SCHOOL</span><br />
+          <span class="text-[var(--color-cream)]/90">A head start, by design.</span>
         </h2>
-        <p class="mt-6 text-[rgba(250,246,236,0.78)] text-lg leading-relaxed max-w-2xl">
-          Our most ambitious course — crafted for school students who aspire to clear the UPSC. Built around 70+ guided lectures across Internal Security, Indian Society, Ethics, Science &amp; Technology, International Relations and Post-Independence History.
+        <p class="mt-7 text-[rgba(250,246,236,0.78)] text-lg leading-relaxed max-w-2xl">
+          Our most ambitious course — crafted for school students who aspire to clear the UPSC. Built around 65+ guided lectures across Internal Security, Indian Society, Ethics, Science &amp; Technology, International Relations and Post-Independence History.
         </p>
 
-        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-5" data-reveal data-reveal-delay="2">
           {[
-            { k: "70+", v: "Live Lectures" },
+            { k: "65+", v: "Live Lectures" },
             { k: "6", v: "Core Subjects" },
             { k: "1:1", v: "Mentor Access" },
             { k: "PAN-India", v: "Aspirants" },
           ].map((i) => (
-            <div class="border-l-2 border-[var(--color-gold)] pl-4">
-              <div class="font-serif text-2xl">{i.k}</div>
-              <div class="text-xs uppercase tracking-widest text-[rgba(250,246,236,0.65)] mt-1">{i.v}</div>
+            <div class="relative pl-5">
+              <span class="absolute left-0 top-1 bottom-1 w-[2px] bg-gradient-to-b from-[var(--color-gold)] to-transparent"></span>
+              <div class="font-serif text-[1.75rem] leading-none">{i.k}</div>
+              <div class="text-[10px] uppercase tracking-[0.22em] text-[rgba(250,246,236,0.65)] mt-2">{i.v}</div>
             </div>
           ))}
         </div>
 
-        <div class="mt-10 flex flex-wrap gap-3">
+        <div class="mt-12 flex flex-wrap gap-3" data-reveal data-reveal-delay="3">
           <a href="/focus-school" class="btn-primary !bg-[var(--color-gold)] !text-[var(--color-ink)] hover:!bg-[var(--color-cream)]">
             See the full curriculum
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
-          <a href="/contact" class="btn-ghost !border-[var(--color-cream)] !text-[var(--color-cream)] hover:!bg-[var(--color-cream)] hover:!text-[var(--color-ink)]">Enrol your child</a>
+          <a href="/contact" class="btn-ghost !border-[var(--color-cream)]/50 !text-[var(--color-cream)] hover:!bg-[var(--color-cream)] hover:!text-[var(--color-ink)]">Enrol your child</a>
         </div>
       </div>
 
-      <div class="lg:col-span-5">
-        <div class="card !bg-[rgba(255,255,255,0.04)] !border-white/10 p-8 backdrop-blur-sm">
+      <div class="lg:col-span-5" data-reveal data-reveal-delay="2">
+        <div class="card !bg-[rgba(255,255,255,0.04)] !border-white/10 p-8 backdrop-blur-sm relative">
+          <div class="absolute -top-3 -right-3 h-10 px-4 rounded-full bg-[var(--color-gold)] text-[var(--color-ink)] flex items-center text-[10px] uppercase tracking-[0.22em] font-bold shadow-[var(--shadow-gold)]">
+            New 2026 batch
+          </div>
           <p class="text-xs uppercase tracking-[0.25em] text-[var(--color-gold)] font-semibold">What students learn</p>
-          <ul class="mt-6 space-y-4 text-sm text-[rgba(250,246,236,0.82)]">
+          <ul class="mt-6 space-y-4 text-sm text-[rgba(250,246,236,0.85)]">
             {[
-              "Internal Security — terrorism, cyber security, border management",
-              "Indian Society — caste, communalism, urbanization, Census 2011",
-              "Ethics — schools of thought, Indian & Western thinkers, integrity",
-              "Science & Tech — space, biotech, defence, IPR",
-              "International Relations — QUAD, BRICS, neighbourhood policy",
-              "Post-Independence History — from Nehru era to 21st century",
+              { t: "Internal Security", d: "terrorism, cyber security, border management" },
+              { t: "Indian Society", d: "caste, communalism, urbanization, Census 2011" },
+              { t: "Ethics", d: "schools of thought, Indian & Western thinkers, integrity" },
+              { t: "Science & Technology", d: "space, biotech, defence, IPR" },
+              { t: "International Relations", d: "QUAD, BRICS, neighbourhood policy" },
+              { t: "Post-Independence History", d: "from Nehru era to 21st century" },
             ].map((x) => (
-              <li class="flex gap-3">
-                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--color-gold)] flex-none"></span>
-                <span>{x}</span>
+              <li class="flex gap-4 group">
+                <span class="mt-1.5 h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none ring-4 ring-[var(--color-gold)]/20 group-hover:ring-[var(--color-gold)]/40 transition"></span>
+                <span>
+                  <span class="font-medium text-[var(--color-cream)]">{x.t}</span>
+                  <span class="text-[rgba(250,246,236,0.6)]"> — {x.d}</span>
+                </span>
               </li>
             ))}
           </ul>
@@ -180,31 +332,56 @@ const pillars = [
     </div>
   </section>
 
-  <!-- TESTIMONIAL TEASER -->
-  <section class="py-20 lg:py-28">
-    <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center">
-      <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Messages from Civil Servants</p>
-      <blockquote class="mt-6 text-2xl sm:text-3xl font-serif leading-snug text-[var(--color-ink)]">
-        “Starting preparation during school years gives you a decade of quiet, compounding advantage. It's the single highest-leverage decision an aspirant can make.”
+  <!-- TESTIMONIAL -->
+  <section class="py-24 lg:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 flex items-center justify-center">
+      <svg width="820" viewBox="0 0 100 100" class="opacity-[0.035]" aria-hidden="true">
+        <text x="0" y="85" font-family="Fraunces" font-weight="600" font-size="120" fill="currentColor" class="text-[var(--color-gold-deep)]">&ldquo;</text>
+      </svg>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center" data-reveal>
+      <div class="ornament max-w-sm mx-auto mb-5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>
+        <span class="text-xs uppercase tracking-[0.22em] font-semibold">Messages from Civil Servants</span>
+      </div>
+      <blockquote class="text-2xl sm:text-[2rem] lg:text-[2.5rem] font-serif leading-[1.2] text-[var(--color-ink)] max-w-4xl mx-auto">
+        <span class="text-[var(--color-gold-deep)] font-serif">“</span>Starting preparation during school years gives you a <em class="text-[var(--color-gold-deep)]">decade of quiet, compounding advantage</em>. It's the single highest-leverage decision an aspirant can make.<span class="text-[var(--color-gold-deep)] font-serif">”</span>
       </blockquote>
-      <p class="mt-6 text-sm tracking-wider uppercase text-[var(--color-muted)]">— A serving IAS Officer, Batch of 2019</p>
-      <a href="/messages" class="mt-10 inline-flex btn-ghost">Read all messages</a>
+
+      <div class="mt-10 inline-flex items-center gap-4 border border-[var(--color-line)] bg-white rounded-full py-2 pl-2 pr-6 shadow-[var(--shadow-card)]">
+        <span class="h-10 w-10 rounded-full bg-[var(--color-gold)] flex items-center justify-center font-serif text-[var(--color-ink)]">IO</span>
+        <div class="text-left">
+          <p class="font-medium text-sm">A serving IAS Officer</p>
+          <p class="text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted)] mt-0.5">Batch of 2019</p>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <a href="/messages" class="btn-ghost">Read all messages</a>
+      </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="pb-24">
+  <section class="pb-28">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="card p-10 md:p-14 bg-gradient-to-br from-[var(--color-cream-deep)] to-[var(--color-gold-soft)] border-[var(--color-gold-deep)]/20 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center">
-        <div>
-          <h2 class="text-3xl sm:text-4xl">Ready to visit us?</h2>
-          <p class="mt-4 text-[var(--color-ink-soft)] leading-relaxed max-w-lg">
+      <div data-reveal class="card p-10 md:p-14 relative overflow-hidden bg-gradient-to-br from-[var(--color-cream-deep)] via-[var(--color-cream)] to-[var(--color-gold-soft)] border-[var(--color-gold-deep)]/20 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center">
+        <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[var(--color-gold)]/20 blur-2xl"></div>
+        <div class="absolute -left-8 -bottom-10 h-40 w-40 rounded-full bg-[var(--color-gold-deep)]/10 blur-2xl"></div>
+
+        <div class="relative">
+          <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Ready to visit us?</h2>
+          <p class="mt-5 text-[var(--color-ink-soft)] leading-relaxed max-w-lg">
             Walk into our academy in New Delhi for a no-obligation counselling session. We'll help you map out your UPSC journey — whether you're starting in Class IX or already in your graduation years.
           </p>
         </div>
-        <div class="flex flex-wrap md:justify-end gap-3">
+        <div class="relative flex flex-wrap md:justify-end gap-3">
           <a href="/contact" class="btn-primary">Book a Visit</a>
-          <a href="tel:+911141234567" class="btn-ghost">Call +91 11 4123 4567</a>
+          <a href="tel:+911141234567" class="btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+            +91 11 4123 4567
+          </a>
         </div>
       </div>
     </div>

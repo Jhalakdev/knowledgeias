@@ -1,8 +1,32 @@
 ---
 const year = new Date().getFullYear();
 ---
-<footer class="mt-28 bg-[var(--color-ink)] text-[var(--color-cream)]">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid gap-12 md:grid-cols-4">
+<footer class="mt-28 bg-[var(--color-ink)] text-[var(--color-cream)] relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(circle at 15% 20%, #f5a623 0, transparent 45%), radial-gradient(circle at 85% 80%, #f5a623 0, transparent 45%);"></div>
+  <div class="absolute inset-0 jali-pattern opacity-30"></div>
+
+  <!-- Newsletter / visit strip -->
+  <div class="relative border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-10 grid md:grid-cols-[1.5fr_1fr] gap-8 items-center">
+      <div>
+        <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold)] font-semibold">Stay connected</p>
+        <h3 class="mt-2 font-serif text-2xl sm:text-3xl text-[var(--color-cream)]">Get notified about new batches &amp; events.</h3>
+      </div>
+      <form class="flex gap-2" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('.ok').classList.remove('hidden');">
+        <input
+          type="email"
+          required
+          placeholder="you@example.com"
+          class="flex-1 bg-white/5 border border-white/15 focus:border-[var(--color-gold)] rounded-full px-5 py-3 outline-none text-sm text-[var(--color-cream)] placeholder:text-white/40 transition-colors"
+          aria-label="Email address"
+        />
+        <button type="submit" class="btn-primary !bg-[var(--color-gold)] !text-[var(--color-ink)] hover:!bg-[var(--color-cream)] !py-3 !px-5 text-sm">Subscribe</button>
+        <p class="ok hidden absolute translate-y-12 text-xs text-[var(--color-gold)]">Thank you — you're on the list.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 py-16 grid gap-12 md:grid-cols-4">
     <div class="md:col-span-2 max-w-md">
       <div class="flex items-center gap-3">
         <img src="/logo.png" alt="Knowledge IAS" class="h-20 w-auto object-contain" style="filter: brightness(0) invert(1);" />
@@ -10,37 +34,66 @@ const year = new Date().getFullYear();
       <p class="mt-4 text-sm leading-relaxed text-[rgba(250,246,236,0.72)]">
         A premier academy guiding aspirants of the UPSC Civil Services Examination. Home to <span class="text-[var(--color-gold)]">FOCUS&nbsp;SCHOOL</span> — our flagship programme for school students aspiring to serve the nation.
       </p>
+
+      <!-- Social icons -->
+      <div class="mt-6 flex gap-3">
+        {[
+          { href: "https://instagram.com", label: "Instagram", path: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" },
+          { href: "https://youtube.com", label: "YouTube", path: "M22 12s0-3.5-.5-5.2A2.8 2.8 0 0 0 19.5 5C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5A2.8 2.8 0 0 0 2.5 6.8C2 8.5 2 12 2 12s0 3.5.5 5.2A2.8 2.8 0 0 0 4.5 19c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a2.8 2.8 0 0 0 2-1.8c.5-1.7.5-5.2.5-5.2zM10 15.3V8.7l5.5 3.3L10 15.3z" },
+          { href: "https://www.linkedin.com", label: "LinkedIn", path: "M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.11 2.06 2.06 0 0 1 0 4.11zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .87 0 1.95v20.1C0 23.13.9 24 2 24h20c1.1 0 2-.87 2-1.95V1.95C24 .87 23.1 0 22 0z" },
+          { href: "https://twitter.com", label: "X (Twitter)", path: "M18.244 2H21l-6.53 7.463L22 22h-6.873l-4.8-6.289L4.8 22H2l7-8 -7 -12h6.914l4.343 5.744L18.244 2zm-2.41 18.25h1.85L8.26 3.65H6.275l9.56 16.6z" },
+        ].map((s) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener"
+            aria-label={s.label}
+            class="h-10 w-10 rounded-full border border-white/15 text-[rgba(250,246,236,0.8)] hover:text-[var(--color-ink)] hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] flex items-center justify-center transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={s.path}/></svg>
+          </a>
+        ))}
+      </div>
     </div>
 
     <div>
-      <h4 class="text-sm tracking-[0.2em] uppercase text-[var(--color-gold)] font-sans font-semibold">Explore</h4>
-      <ul class="mt-4 space-y-2 text-sm text-[rgba(250,246,236,0.82)]">
-        <li><a href="/about" class="hover:text-[var(--color-gold)]">About Us</a></li>
-        <li><a href="/upsc" class="hover:text-[var(--color-gold)]">About UPSC</a></li>
-        <li><a href="/focus-school" class="hover:text-[var(--color-gold)]">Focus School</a></li>
-        <li><a href="/directors-message" class="hover:text-[var(--color-gold)]">Director's Message</a></li>
-        <li><a href="/messages" class="hover:text-[var(--color-gold)]">Civil Servants</a></li>
-        <li><a href="/gallery" class="hover:text-[var(--color-gold)]">Gallery</a></li>
+      <h4 class="text-sm tracking-[0.22em] uppercase text-[var(--color-gold)] font-sans font-semibold">Explore</h4>
+      <ul class="mt-5 space-y-2.5 text-sm text-[rgba(250,246,236,0.82)]">
+        <li><a href="/about" class="link-underline hover:text-[var(--color-gold)]">About Us</a></li>
+        <li><a href="/upsc" class="link-underline hover:text-[var(--color-gold)]">About UPSC</a></li>
+        <li><a href="/focus-school" class="link-underline hover:text-[var(--color-gold)]">Focus School</a></li>
+        <li><a href="/directors-message" class="link-underline hover:text-[var(--color-gold)]">Director's Message</a></li>
+        <li><a href="/messages" class="link-underline hover:text-[var(--color-gold)]">Civil Servants</a></li>
+        <li><a href="/gallery" class="link-underline hover:text-[var(--color-gold)]">Gallery</a></li>
       </ul>
     </div>
 
     <div>
-      <h4 class="text-sm tracking-[0.2em] uppercase text-[var(--color-gold)] font-sans font-semibold">Contact</h4>
-      <address class="mt-4 not-italic text-sm leading-relaxed text-[rgba(250,246,236,0.82)]">
-        Knowledge IAS Academy<br />
-        2nd Floor, 21-B, Old Rajinder Nagar<br />
-        New Delhi — 110060, India<br /><br />
-        <a href="tel:+911141234567" class="hover:text-[var(--color-gold)]">+91 11 4123 4567</a><br />
-        <a href="mailto:info@knowledgeias.in" class="hover:text-[var(--color-gold)]">info@knowledgeias.in</a>
+      <h4 class="text-sm tracking-[0.22em] uppercase text-[var(--color-gold)] font-sans font-semibold">Contact</h4>
+      <address class="mt-5 not-italic text-sm leading-relaxed text-[rgba(250,246,236,0.82)] space-y-3">
+        <div>
+          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Visit</span>
+          Knowledge IAS Academy<br />
+          2nd Floor, 21-B, Old Rajinder Nagar<br />
+          New Delhi — 110060, India
+        </div>
+        <div>
+          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Call</span>
+          <a href="tel:+911141234567" class="link-underline hover:text-[var(--color-gold)]">+91 11 4123 4567</a>
+        </div>
+        <div>
+          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Email</span>
+          <a href="mailto:info@knowledgeias.in" class="link-underline hover:text-[var(--color-gold)]">info@knowledgeias.in</a>
+        </div>
       </address>
     </div>
   </div>
 
-  <div class="border-t border-white/10">
+  <div class="relative border-t border-white/10">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-[rgba(250,246,236,0.55)]">
       <p>© {year} Knowledge IAS Academy. All rights reserved.</p>
       <p>Director &amp; Founder — Mr. Ajay Sah</p>
-      <p>Website created by <a href="https://webaccuracy.com" target="_blank" rel="noopener noreferrer" class="text-[var(--color-gold)] hover:underline">webaccuracy.com</a></p>
+      <p>Website created by <a href="https://webaccuracy.com" target="_blank" rel="noopener noreferrer" class="text-[var(--color-gold)] link-underline">webaccuracy.com</a></p>
     </div>
   </div>
 </footer>

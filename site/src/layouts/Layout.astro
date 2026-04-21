@@ -41,5 +41,37 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <script is:inline>
+      (() => {
+        if (typeof IntersectionObserver === "undefined") {
+          document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+
+        // Subtle scroll shadow on navbar
+        const header = document.querySelector("header[data-navbar]");
+        if (header) {
+          const onScroll = () => {
+            if (window.scrollY > 8) header.setAttribute("data-scrolled", "true");
+            else header.removeAttribute("data-scrolled");
+          };
+          onScroll();
+          window.addEventListener("scroll", onScroll, { passive: true });
+        }
+      })();
+    </script>
   </body>
 </html>

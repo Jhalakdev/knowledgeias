@@ -13,10 +13,13 @@ const navItems = [
 const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 ---
 
-<header class="sticky top-0 z-40 backdrop-blur-md bg-[rgba(250,246,236,0.9)] border-b border-[var(--color-line)]">
+<header
+  data-navbar
+  class="sticky top-0 z-40 backdrop-blur-md bg-[rgba(250,246,236,0.82)] border-b border-transparent transition-[background,border-color,box-shadow] duration-300 data-[scrolled=true]:bg-[rgba(250,246,236,0.95)] data-[scrolled=true]:border-[var(--color-line)] data-[scrolled=true]:shadow-[0_6px_24px_-18px_rgba(11,11,11,0.25)]"
+>
   <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 -my-2" aria-label="Knowledge IAS home">
-      <img src="/logo.png" alt="Knowledge IAS" class="h-14 sm:h-16 w-auto object-contain" />
+    <a href="/" class="flex items-center gap-3 -my-2 group" aria-label="Knowledge IAS home">
+      <img src="/logo.png" alt="Knowledge IAS" class="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" />
       <span class="sr-only">Knowledge IAS</span>
     </a>
 
@@ -24,13 +27,16 @@ const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.s
       {navItems.map((item) => (
         <a
           href={item.href}
-          class={`px-3 py-2 text-sm font-medium rounded-full transition-colors ${
+          class={`relative px-3 py-2 text-sm font-medium rounded-full transition-colors ${
             isActive(item.href)
-              ? "text-[var(--color-ink)] bg-[var(--color-gold-soft)]"
+              ? "text-[var(--color-ink)]"
               : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:bg-[rgba(245,166,35,0.12)]"
           }`}
         >
           {item.label}
+          {isActive(item.href) && (
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[3px] w-5 rounded-full bg-[var(--color-gold)]"></span>
+          )}
         </a>
       ))}
     </nav>

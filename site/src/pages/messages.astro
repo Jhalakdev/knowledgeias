@@ -41,20 +41,23 @@ const messages = [
 ];
 ---
 <Layout title="Messages from Civil Servants — Knowledge IAS Academy">
-  <section class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-12">
-    <span class="chip">Messages from Civil Servants</span>
-    <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
-      Words from those who <span class="gold-underline">wear the tricolour</span>.
-    </h1>
-    <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
-      Messages from serving IAS, IPS, IFS and IRS officers who began their journey with Knowledge IAS Academy.
-    </p>
+  <section class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-12">
+    <div class="absolute top-0 right-0 w-[40%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,rgba(245,166,35,0.12),transparent_70%)] -z-10"></div>
+    <div data-reveal>
+      <span class="chip"><span class="dot"></span>Messages from Civil Servants</span>
+      <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
+        Words from those who <span class="gold-underline-animated">wear the tricolour</span>.
+      </h1>
+      <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
+        Messages from serving IAS, IPS, IFS and IRS officers who began their journey with Knowledge IAS Academy.
+      </p>
+    </div>
   </section>
 
   <section class="max-w-6xl mx-auto px-5 sm:px-8 pb-24">
     <div class="grid md:grid-cols-2 gap-6">
       {messages.map((m, i) => (
-        <figure class="card p-8 flex flex-col">
+        <figure data-reveal data-reveal-delay={String((i % 4) + 1)} class="card card-interactive card-gold-corner p-8 flex flex-col">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 opacity-70">
             <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h3c-.25 2.89-3.5 4-3.5 4"></path>
             <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h3c-.25 2.89-3.5 4-3.5 4"></path>

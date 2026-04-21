@@ -2,11 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 ---
 <Layout title="Director's Message — Knowledge IAS Academy">
-  <section class="max-w-4xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-16">
-    <span class="chip">Director's Message</span>
-    <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
-      <span class="gold-underline">To all aspiring</span><br />Civil Servants.
-    </h1>
+  <section class="relative max-w-4xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-16">
+    <div class="absolute top-0 right-0 w-[50%] h-[80%] bg-[radial-gradient(ellipse_at_top_right,rgba(245,166,35,0.12),transparent_70%)] -z-10"></div>
+    <div data-reveal>
+      <span class="chip"><span class="dot"></span>Director's Message</span>
+      <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight">
+        <span class="gold-underline-animated">To all aspiring</span><br /><span class="italic text-[var(--color-ink-soft)]">Civil Servants.</span>
+      </h1>
+    </div>
   </section>
 
   <section class="max-w-4xl mx-auto px-5 sm:px-8 pb-20 prose-readable">

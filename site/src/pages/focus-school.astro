@@ -5,6 +5,7 @@ const curriculum = [
   {
     subject: "Internal Security",
     icon: "shield",
+    summary: "Terrorism, cyber security, border management, security forces.",
     lectures: [
       "Internal Security Challenges of India",
       "Left-Wing Extremism & Naxalism — meaning, history, contemporary challenge",
@@ -22,6 +23,7 @@ const curriculum = [
   {
     subject: "Indian Society",
     icon: "users",
+    summary: "Caste, communalism, regionalism, urbanization, women, Census.",
     lectures: [
       "Salient Features of Indian Society — Unity in Diversity",
       "Caste — origin, issues & challenges",
@@ -38,6 +40,7 @@ const curriculum = [
   {
     subject: "Ethics",
     icon: "scale",
+    summary: "Indian & Western thinkers, emotional intelligence, corruption.",
     lectures: [
       "Basic concepts — ethics, morality, values, integrity & sources of ethics",
       "Schools of ethics — deontology, teleology, consequentialism, Kantianism, hedonism",
@@ -58,6 +61,7 @@ const curriculum = [
   {
     subject: "Science & Technology",
     icon: "atom",
+    summary: "Space, AI, biotech, defence, IPR, contemporary innovations.",
     lectures: [
       "Basics of Space Tech, Nanotechnology & Robotics",
       "Superconductors, Artificial Intelligence, Nuclear Technology",
@@ -70,6 +74,7 @@ const curriculum = [
   {
     subject: "International Relations",
     icon: "globe",
+    summary: "World order, diplomacy, India's neighbours, global groups.",
     lectures: [
       "World Order — from Billiard Ball Model to Multipolar World",
       "Key IR theories — Realism, Liberalism, Marxism, Feminism, Constructivism",
@@ -92,6 +97,7 @@ const curriculum = [
   {
     subject: "Post-Independence History",
     icon: "history",
+    summary: "Nehru era to 21st century — states, parties, Emergency.",
     lectures: [
       "Prime Ministers of India & key events",
       "Formation of States & current demands of statehood",
@@ -104,36 +110,66 @@ const curriculum = [
     ],
   },
 ];
+
+const features = [
+  { t: "Built for young minds", b: "A curriculum that respects the school timetable — structured, bite-sized, and paced around board exam cycles.", icon: "sun" },
+  { t: "Skills, not just syllabus", b: "Critical thinking, analytical reasoning and effective communication — skills that pay off in school, college and UPSC alike.", icon: "brain" },
+  { t: "Mentorship from Day One", b: "Regular interactions with Mr. Ajay Sah and senior faculty who've taught at GS Score, Next IAS and Chanakya IAS.", icon: "hand" },
+  { t: "Foundation that compounds", b: "The subjects students learn here — Ethics, IR, Polity — stay relevant right till the Mains and Interview stages.", icon: "stack" },
+];
 ---
 <Layout title="FOCUS SCHOOL — Flagship UPSC Programme for School Students">
   <!-- HERO -->
   <section class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-cream)]">
     <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(circle at 15% 20%, #f5a623 0, transparent 50%), radial-gradient(circle at 85% 80%, #f5a623 0, transparent 45%);"></div>
-    <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-20 lg:pt-28 pb-20 lg:pb-28">
-      <span class="chip !bg-[var(--color-gold)] !text-[var(--color-ink)]">Flagship Programme</span>
-      <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-serif leading-[1.02]">
-        FOCUS <span class="text-[var(--color-gold)]">SCHOOL</span>
+    <div class="absolute inset-0 jali-pattern opacity-30"></div>
+
+    <div class="absolute -top-20 -right-20 opacity-[0.07]" aria-hidden="true">
+      <svg width="480" height="480" viewBox="0 0 100 100" class="spin-slow">
+        <g fill="none" stroke="currentColor" stroke-width="0.3" class="text-[var(--color-gold)]">
+          <circle cx="50" cy="50" r="48"/>
+          <circle cx="50" cy="50" r="32"/>
+          {Array.from({ length: 32 }).map((_, i) => {
+            const a = (i * 11.25 * Math.PI) / 180;
+            return (
+              <line
+                x1={50 + Math.cos(a) * 16}
+                y1={50 + Math.sin(a) * 16}
+                x2={50 + Math.cos(a) * 48}
+                y2={50 + Math.sin(a) * 48}
+              />
+            );
+          })}
+        </g>
+      </svg>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-20 lg:pt-28 pb-20 lg:pb-32" data-reveal>
+      <span class="chip !bg-[var(--color-gold)] !text-[var(--color-ink)]"><span class="dot !bg-[var(--color-ink)] !shadow-none"></span>Flagship Programme</span>
+      <h1 class="mt-6 text-5xl sm:text-[4.5rem] lg:text-[6rem] font-serif leading-[1.02] tracking-tight">
+        FOCUS <span class="text-[var(--color-gold)] italic">SCHOOL</span>
       </h1>
-      <p class="mt-6 text-lg sm:text-xl text-[rgba(250,246,236,0.82)] max-w-3xl leading-relaxed">
+      <p class="mt-7 text-lg sm:text-xl text-[rgba(250,246,236,0.82)] max-w-3xl leading-relaxed">
         Our most ambitious course. Crafted for school students who are already dreaming in the language of civil service — and who want a decade of preparation compounding quietly in their favour.
       </p>
       <div class="mt-10 flex flex-wrap gap-3">
         <a href="#curriculum" class="btn-primary !bg-[var(--color-gold)] !text-[var(--color-ink)] hover:!bg-[var(--color-cream)]">
           Jump to curriculum
         </a>
-        <a href="/contact" class="btn-ghost !border-[var(--color-cream)] !text-[var(--color-cream)] hover:!bg-[var(--color-cream)] hover:!text-[var(--color-ink)]">Enrol your child</a>
+        <a href="/contact" class="btn-ghost !border-[var(--color-cream)]/50 !text-[var(--color-cream)] hover:!bg-[var(--color-cream)] hover:!text-[var(--color-ink)]">Enrol your child</a>
       </div>
 
-      <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6" data-reveal data-reveal-delay="2">
         {[
           { k: "65+", v: "Structured Lectures" },
           { k: "6", v: "Core UPSC Subjects" },
           { k: "Class IX+", v: "Eligibility" },
           { k: "Flexible", v: "Batch Schedule" },
         ].map((s) => (
-          <div class="border-l-2 border-[var(--color-gold)] pl-4">
-            <div class="font-serif text-3xl">{s.k}</div>
-            <div class="mt-1 text-xs uppercase tracking-widest text-[rgba(250,246,236,0.65)]">{s.v}</div>
+          <div class="relative pl-5">
+            <span class="absolute left-0 top-1 bottom-1 w-[2px] bg-gradient-to-b from-[var(--color-gold)] to-transparent"></span>
+            <div class="font-serif text-[2rem] leading-none">{s.k}</div>
+            <div class="mt-2 text-[10px] uppercase tracking-[0.22em] text-[rgba(250,246,236,0.65)]">{s.v}</div>
           </div>
         ))}
       </div>
@@ -141,21 +177,24 @@ const curriculum = [
   </section>
 
   <!-- WHY FOCUS -->
-  <section class="py-20 lg:py-24">
+  <section class="py-24 lg:py-28 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-5 gap-12">
-      <div class="lg:col-span-2">
-        <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Why FOCUS SCHOOL</p>
-        <h2 class="mt-3 text-3xl sm:text-4xl">Start early. Think deep. Stay ahead.</h2>
+      <div class="lg:col-span-2" data-reveal>
+        <div class="ornament mb-5 max-w-xs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>
+          <span class="text-xs uppercase tracking-[0.22em] font-semibold">Why FOCUS SCHOOL</span>
+        </div>
+        <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Start early.<br /><span class="italic text-[var(--color-gold-deep)]">Think deep.</span><br />Stay ahead.</h2>
       </div>
-      <div class="lg:col-span-3 space-y-6">
-        {[
-          { t: "Built for young minds", b: "A curriculum that respects the school timetable — structured, bite-sized, and paced around board exam cycles." },
-          { t: "Skills, not just syllabus", b: "Critical thinking, analytical reasoning and effective communication — skills that pay off in school, college and UPSC alike." },
-          { t: "Mentorship from Day One", b: "Regular interactions with Mr. Ajay Sah and senior faculty who've taught at GS Score, Next IAS and Chanakya IAS." },
-          { t: "Foundation that compounds", b: "The subjects students learn here — Ethics, IR, Polity — stay relevant right till the Mains and Interview stages." },
-        ].map((i) => (
-          <div class="card p-6 flex gap-5">
-            <div class="h-10 w-10 rounded-full bg-[var(--color-gold-soft)] text-[var(--color-ink)] flex items-center justify-center font-serif flex-none">★</div>
+      <div class="lg:col-span-3 space-y-5">
+        {features.map((i, idx) => (
+          <div data-reveal data-reveal-delay={String(idx + 1)} class="card card-interactive p-6 flex gap-5">
+            <div class="h-12 w-12 rounded-2xl bg-[var(--color-gold-soft)] text-[var(--color-ink)] flex items-center justify-center flex-none">
+              {i.icon === "sun" && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>}
+              {i.icon === "brain" && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24A2.5 2.5 0 0 1 6.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24A2.5 2.5 0 0 0 17.5 2Z"/></svg>}
+              {i.icon === "hand" && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.5 0-3.5-.55-4.5-1.5L3 17.5c-1.3-1.3-.5-3 1-3.5"/></svg>}
+              {i.icon === "stack" && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>}
+            </div>
             <div>
               <h3 class="text-lg">{i.t}</h3>
               <p class="mt-1.5 text-sm text-[var(--color-muted)] leading-relaxed">{i.b}</p>
@@ -167,33 +206,49 @@ const curriculum = [
   </section>
 
   <!-- CURRICULUM -->
-  <section id="curriculum" class="py-20 lg:py-24 bg-[var(--color-cream-deep)]/60">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
-      <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Full Curriculum</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">Six subjects. Sixty-five-plus lectures.</h2>
-      <p class="mt-4 max-w-2xl text-[var(--color-muted)]">
-        Every subject below unfolds through a structured set of lectures designed for conceptual clarity and exam-readiness.
-      </p>
+  <section id="curriculum" class="py-24 lg:py-28 bg-[var(--color-cream-deep)]/60 relative">
+    <div class="absolute inset-0 jali-pattern opacity-20"></div>
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+      <div data-reveal>
+        <div class="ornament mb-5 max-w-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>
+          <span class="text-xs uppercase tracking-[0.22em] font-semibold">Full Curriculum</span>
+        </div>
+        <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Six subjects. <span class="italic text-[var(--color-gold-deep)]">Sixty-five-plus lectures.</span></h2>
+        <p class="mt-4 max-w-2xl text-[var(--color-muted)]">
+          Every subject below unfolds through a structured set of lectures designed for conceptual clarity and exam-readiness.
+        </p>
+      </div>
 
       <div class="mt-12 space-y-4">
         {curriculum.map((s, i) => (
-          <details class="card overflow-hidden" open={i === 0}>
+          <details data-reveal data-reveal-delay={String((i % 5) + 1)} class="card card-interactive overflow-hidden" open={i === 0}>
             <summary class="px-6 py-5 flex items-center justify-between gap-6 hover:bg-[var(--color-gold-soft)]/30 transition-colors">
-              <div class="flex items-center gap-4">
-                <span class="font-serif text-2xl text-[var(--color-gold-deep)] w-10">{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <h3 class="text-xl sm:text-2xl">{s.subject}</h3>
-                  <p class="text-xs text-[var(--color-muted)] mt-1">{s.lectures.length} lectures</p>
+              <div class="flex items-center gap-5 flex-1 min-w-0">
+                <span class="font-serif text-2xl text-[var(--color-gold-deep)] w-10 flex-none">{String(i + 1).padStart(2, "0")}</span>
+
+                <div class="h-11 w-11 rounded-xl bg-[var(--color-ink)] text-[var(--color-gold)] flex items-center justify-center flex-none">
+                  {s.icon === "shield" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                  {s.icon === "users" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
+                  {s.icon === "scale" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m16 6 4 0"/><path d="m4 6 4 0"/><path d="M6 3h12"/><path d="M20 6 16 14c-1 2 0 3 2 3s3-1 2-3z"/><path d="M4 6 0 14c-1 2 0 3 2 3s3-1 2-3z"/></svg>}
+                  {s.icon === "atom" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>}
+                  {s.icon === "globe" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>}
+                  {s.icon === "history" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>}
+                </div>
+
+                <div class="min-w-0">
+                  <h3 class="text-lg sm:text-xl truncate">{s.subject}</h3>
+                  <p class="text-xs text-[var(--color-muted)] mt-1 truncate">{s.lectures.length} lectures · {s.summary}</p>
                 </div>
               </div>
-              <span class="chevron text-3xl leading-none text-[var(--color-gold-deep)] transition-transform">+</span>
+              <span class="chevron text-3xl leading-none text-[var(--color-gold-deep)] transition-transform flex-none">+</span>
             </summary>
             <div class="px-6 pb-6 pt-0">
               <div class="hairline mb-5"></div>
               <ol class="grid md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
                 {s.lectures.map((l, idx) => (
                   <li class="flex gap-3">
-                    <span class="text-xs text-[var(--color-gold-deep)] font-semibold mt-0.5 flex-none w-6">L{idx + 1}</span>
+                    <span class="text-[11px] text-[var(--color-gold-deep)] font-semibold mt-0.5 flex-none w-6 tracking-wider">L{idx + 1}</span>
                     <span class="text-[var(--color-ink-soft)]">{l}</span>
                   </li>
                 ))}
@@ -206,14 +261,15 @@ const curriculum = [
   </section>
 
   <!-- CTA -->
-  <section class="py-20">
+  <section class="py-24">
     <div class="max-w-5xl mx-auto px-5 sm:px-8">
-      <div class="card p-10 md:p-14 text-center bg-gradient-to-br from-[var(--color-cream-deep)] to-[var(--color-gold-soft)]">
-        <h2 class="text-3xl sm:text-4xl">Give your child a ten-year head start.</h2>
-        <p class="mt-4 text-[var(--color-ink-soft)] max-w-2xl mx-auto">
+      <div data-reveal class="card p-10 md:p-14 text-center bg-gradient-to-br from-[var(--color-cream-deep)] to-[var(--color-gold-soft)] relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[var(--color-gold)]/30 blur-2xl"></div>
+        <h2 class="relative text-3xl sm:text-[2.5rem] leading-tight">Give your child a <span class="italic text-[var(--color-gold-deep)]">ten-year head start.</span></h2>
+        <p class="relative mt-5 text-[var(--color-ink-soft)] max-w-2xl mx-auto">
           Book a counselling session at our New Delhi centre — we'll walk you through the batch structure, fees, and how FOCUS SCHOOL fits alongside your child's school life.
         </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <div class="relative mt-9 flex flex-wrap justify-center gap-3">
           <a href="/contact" class="btn-primary">Book a Counselling Call</a>
           <a href="tel:+911141234567" class="btn-ghost">+91 11 4123 4567</a>
         </div>
