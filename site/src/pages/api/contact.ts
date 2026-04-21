@@ -17,7 +17,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ ok: false, error: "Invalid request body" }, 400);
   }
 
-  // honeypot
   if (data.company) return json({ ok: true });
 
   const name = str(data.name);
@@ -37,18 +36,22 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const ip = clientAddress ?? undefined;
   const userAgent = request.headers.get("user-agent") ?? undefined;
 
-  const saved = addSubmission({
-    name: name.slice(0, 200),
-    email: email.slice(0, 200),
-    phone: phone.slice(0, 50),
-    role: role ? role.slice(0, 100) : undefined,
-    programme: programme ? programme.slice(0, 100) : undefined,
-    message: message ? message.slice(0, 4000) : undefined,
-    ip,
-    userAgent,
-  });
-
-  return json({ ok: true, id: saved.id });
+  try {
+    const saved = await addSubmission({
+      name: name.slice(0, 200),
+      email: email.slice(0, 200),
+      phone: phone.slice(0, 50),
+      role: role ? role.slice(0, 100) : undefined,
+      programme: programme ? programme.slice(0, 100) : undefined,
+      message: message ? message.slice(0, 4000) : undefined,
+      ip,
+      userAgent,
+    });
+    return json({ ok: true, id: saved.id });
+  } catch (e) {
+    console.error("[api/contact] store error", e);
+    return json({ ok: false, error: "Storage error" }, 500);
+  }
 };
 
 function str(v: unknown): string {

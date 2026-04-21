@@ -1,17 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// Real-feeling placeholders via Unsplash source URLs. Swap with your own photos later.
 const shots = [
-  { caption: "Classroom session — FOCUS SCHOOL batch", ratio: "md:row-span-2 md:col-span-2", u: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=72" },
-  { caption: "Seminar at IIT Delhi", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Library &amp; reading lounge", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Guest lecture — serving IAS officer", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=1200&q=72" },
-  { caption: "Mains answer-writing workshop", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Annual orientation day", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Weekly prelims test series", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=1200&q=72" },
-  { caption: "Campus at Old Rajinder Nagar", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Director's interaction hour", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=900&q=72" },
+  { caption: "Classroom session — FOCUS SCHOOL batch", ratio: "md:row-span-2 md:col-span-2", u: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=72" },
+  { caption: "Seminar at IIT Delhi", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=700&q=72" },
+  { caption: "Library & reading lounge", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=700&q=72" },
+  { caption: "Guest lecture — serving IAS officer", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=900&q=72" },
+  { caption: "Mains answer-writing workshop", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=700&q=72" },
+  { caption: "Annual orientation day", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=700&q=72" },
+  { caption: "Weekly prelims test series", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=900&q=72" },
+  { caption: "Campus at Old Rajinder Nagar", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=700&q=72" },
+  { caption: "Director's interaction hour", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=700&q=72" },
 ];
 ---
 <Layout title="Gallery — Knowledge IAS Academy">
@@ -22,7 +21,7 @@ const shots = [
         Moments from <span class="gold-underline-animated">our classrooms</span>.
       </h1>
       <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
-        A glimpse of life at Knowledge IAS — classrooms, workshops, seminars and the little moments that make an aspirant's journey.
+        A glimpse of life at Knowledge IAS — classrooms, workshops, seminars and the little moments that make an aspirant's journey. Click any photo to expand.
       </p>
     </div>
   </section>
@@ -30,13 +29,19 @@ const shots = [
   <section class="max-w-7xl mx-auto px-5 sm:px-8 pb-24">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-[190px] md:auto-rows-[220px]">
       {shots.map((p, i) => (
-        <figure
+        <button
+          type="button"
           data-reveal
           data-reveal-delay={String((i % 5) + 1)}
-          class={`${p.ratio} relative overflow-hidden rounded-2xl card !p-0 group cursor-zoom-in`}
+          data-lightbox-open
+          data-index={i}
+          data-src={p.u}
+          data-caption={p.caption}
+          class={`${p.ratio} relative overflow-hidden rounded-2xl card !p-0 group cursor-zoom-in text-left`}
+          aria-label={`Open photo ${i + 1}: ${p.caption}`}
         >
           <img
-            src={p.u}
+            src={p.thumb}
             alt={p.caption}
             loading="lazy"
             decoding="async"
@@ -46,15 +51,112 @@ const shots = [
           <figcaption class="absolute inset-x-0 bottom-0 p-4 text-xs tracking-wide text-white">
             <span class="text-[var(--color-gold)] font-semibold">0{i + 1}</span>
             <span class="mx-2 opacity-50">·</span>
-            <span set:html={p.caption}></span>
+            <span>{p.caption}</span>
           </figcaption>
           <div class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
           </div>
-        </figure>
+        </button>
       ))}
     </div>
 
     <p class="mt-10 text-center text-sm text-[var(--color-muted)]">Placeholder images. Share your academy photographs at <a class="link-underline hover:text-[var(--color-gold-deep)]" href="mailto:info@knowledgeias.in">info@knowledgeias.in</a> and we'll feature them here.</p>
   </section>
+
+  <!-- Lightbox -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm p-4 sm:p-10"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Photo viewer"
+  >
+    <button
+      type="button"
+      id="lightbox-close"
+      class="absolute top-5 right-5 h-11 w-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+      aria-label="Close"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <button
+      type="button"
+      id="lightbox-prev"
+      class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+      aria-label="Previous photo"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <button
+      type="button"
+      id="lightbox-next"
+      class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+      aria-label="Next photo"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <figure class="h-full w-full flex flex-col items-center justify-center gap-5">
+      <img id="lightbox-img" src="" alt="" class="max-h-[78vh] max-w-full object-contain rounded-xl shadow-2xl" />
+      <figcaption class="text-white text-center max-w-2xl">
+        <p id="lightbox-caption" class="text-lg font-serif"></p>
+        <p id="lightbox-counter" class="mt-1 text-xs uppercase tracking-[0.22em] text-white/50"></p>
+      </figcaption>
+    </figure>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const overlay = document.getElementById("lightbox");
+      const imgEl = document.getElementById("lightbox-img");
+      const capEl = document.getElementById("lightbox-caption");
+      const countEl = document.getElementById("lightbox-counter");
+      const closeBtn = document.getElementById("lightbox-close");
+      const prevBtn = document.getElementById("lightbox-prev");
+      const nextBtn = document.getElementById("lightbox-next");
+      const triggers = Array.from(document.querySelectorAll("[data-lightbox-open]"));
+      if (!overlay || triggers.length === 0) return;
+
+      let index = 0;
+      const shots = triggers.map((t) => ({
+        src: t.getAttribute("data-src") || "",
+        caption: t.getAttribute("data-caption") || "",
+      }));
+
+      function render() {
+        const shot = shots[index];
+        imgEl.src = shot.src;
+        imgEl.alt = shot.caption;
+        capEl.textContent = shot.caption;
+        countEl.textContent = `${String(index + 1).padStart(2, "0")} / ${String(shots.length).padStart(2, "0")}`;
+      }
+      function open(i) {
+        index = i;
+        render();
+        overlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+      function close() {
+        overlay.classList.add("hidden");
+        document.body.style.overflow = "";
+        imgEl.src = "";
+      }
+      function next() { index = (index + 1) % shots.length; render(); }
+      function prev() { index = (index - 1 + shots.length) % shots.length; render(); }
+
+      triggers.forEach((t, i) => t.addEventListener("click", () => open(i)));
+      closeBtn.addEventListener("click", close);
+      nextBtn.addEventListener("click", next);
+      prevBtn.addEventListener("click", prev);
+      overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+      document.addEventListener("keydown", (e) => {
+        if (overlay.classList.contains("hidden")) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowRight") next();
+        else if (e.key === "ArrowLeft") prev();
+      });
+    })();
+  </script>
 </Layout>

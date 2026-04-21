@@ -1,11 +1,23 @@
 ---
 export const prerender = false;
 import "../../styles/global.css";
-import { listSubmissions, countUnread } from "../../lib/store";
+import {
+  listSubmissions,
+  countUnreadSubmissions,
+  listSubscribers,
+  storeMode,
+} from "../../lib/store";
 
-const submissions = listSubmissions();
-const unread = countUnread();
+const [submissions, unread, subscribers] = await Promise.all([
+  listSubmissions(),
+  countUnreadSubmissions(),
+  listSubscribers(),
+]);
+
 const total = submissions.length;
+const totalSubscribers = subscribers.length;
+
+const tab = Astro.url.searchParams.get("tab") === "newsletter" ? "newsletter" : "enquiries";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -17,6 +29,13 @@ function formatDate(iso: string) {
     minute: "2-digit",
     hour12: true,
   });
+}
+
+function toCsv(rows: Record<string, unknown>[]) {
+  if (rows.length === 0) return "";
+  const headers = Object.keys(rows[0]);
+  const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  return [headers.join(","), ...rows.map((r) => headers.map((h) => esc(r[h])).join(","))].join("\n");
 }
 ---
 
@@ -36,12 +55,14 @@ function formatDate(iso: string) {
     />
   </head>
   <body>
-    <!-- Top bar -->
     <header class="border-b border-[var(--color-line)] bg-white sticky top-0 z-30">
       <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <img src="/logo.png" alt="Knowledge IAS" class="h-10 w-auto object-contain" />
           <span class="text-sm font-medium text-[var(--color-muted)] hidden sm:inline">· Admin</span>
+          <span class={`text-[10px] uppercase tracking-[0.2em] font-semibold px-2 py-0.5 rounded-full ${storeMode === "redis" ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+            {storeMode === "redis" ? "Redis" : "Local file"}
+          </span>
         </div>
         <div class="flex items-center gap-3">
           <a href="/" class="hidden sm:inline text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)]">View site</a>
@@ -55,120 +76,190 @@ function formatDate(iso: string) {
     </header>
 
     <main class="max-w-7xl mx-auto px-5 sm:px-8 py-10">
+      <!-- Tabs -->
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Contact Enquiries</p>
-          <h1 class="mt-2 font-serif text-3xl sm:text-4xl">Submissions</h1>
+          <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Dashboard</p>
+          <h1 class="mt-2 font-serif text-3xl sm:text-4xl">
+            {tab === "enquiries" ? "Contact Enquiries" : "Newsletter Subscribers"}
+          </h1>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <span class="chip">{total} total</span>
-          {unread > 0 && (
-            <span class="chip !bg-[var(--color-ink)] !text-[var(--color-cream)]">{unread} unread</span>
-          )}
-          {unread > 0 && (
-            <form method="POST" action="/api/admin/action">
-              <input type="hidden" name="action" value="mark-all-read" />
-              <button type="submit" class="text-sm px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)] transition-colors">
-                Mark all read
-              </button>
-            </form>
-          )}
+          <a
+            href="/admin"
+            class={`text-sm px-4 py-2 rounded-full transition-colors ${tab === "enquiries" ? "bg-[var(--color-ink)] text-[var(--color-cream)]" : "bg-white border border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-[var(--color-gold-soft)]"}`}
+          >
+            Enquiries
+            <span class="ml-1.5 text-xs opacity-80">{total}{unread > 0 ? ` · ${unread} unread` : ""}</span>
+          </a>
+          <a
+            href="/admin?tab=newsletter"
+            class={`text-sm px-4 py-2 rounded-full transition-colors ${tab === "newsletter" ? "bg-[var(--color-ink)] text-[var(--color-cream)]" : "bg-white border border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-[var(--color-gold-soft)]"}`}
+          >
+            Newsletter
+            <span class="ml-1.5 text-xs opacity-80">{totalSubscribers}</span>
+          </a>
         </div>
       </div>
 
-      {total === 0 && (
-        <div class="mt-12 card p-12 text-center">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto opacity-70">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          <h2 class="mt-4 font-serif text-2xl">No submissions yet</h2>
-          <p class="mt-2 text-sm text-[var(--color-muted)]">When visitors fill in the contact form, they'll appear here.</p>
-          <a href="/contact" class="mt-6 inline-flex btn-ghost">Open contact form</a>
-        </div>
+      {tab === "enquiries" && (
+        <section class="mt-8">
+          {unread > 0 && (
+            <div class="mb-4 flex items-center justify-between gap-3 bg-[var(--color-gold-soft)] border border-[var(--color-gold)] rounded-2xl px-5 py-3">
+              <p class="text-sm">
+                <span class="font-semibold">{unread}</span> unread enquiries awaiting a reply.
+              </p>
+              <form method="POST" action="/api/admin/action">
+                <input type="hidden" name="action" value="mark-all-read" />
+                <button type="submit" class="text-xs px-3 py-1.5 rounded-full bg-[var(--color-ink)] text-[var(--color-cream)] hover:bg-[var(--color-gold-deep)]">
+                  Mark all read
+                </button>
+              </form>
+            </div>
+          )}
+
+          {total === 0 && (
+            <div class="card p-12 text-center">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto opacity-70">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <h2 class="mt-4 font-serif text-2xl">No submissions yet</h2>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">When visitors fill in the contact form, they'll appear here.</p>
+              <a href="/contact" class="mt-6 inline-flex btn-ghost">Open contact form</a>
+            </div>
+          )}
+
+          {total > 0 && (
+            <div class="space-y-3">
+              {submissions.map((s) => (
+                <details class={`card overflow-hidden ${!s.readAt ? "ring-2 ring-[var(--color-gold)]/60" : ""}`}>
+                  <summary class="px-6 py-5 hover:bg-[var(--color-gold-soft)]/30 transition-colors">
+                    <div class="grid md:grid-cols-[1fr_1fr_1fr_auto] gap-4 items-center">
+                      <div class="flex items-center gap-3">
+                        {!s.readAt && <span class="h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none ring-4 ring-[var(--color-gold)]/25" aria-label="unread"></span>}
+                        <div>
+                          <div class="font-medium text-[var(--color-ink)]">{s.name}</div>
+                          <div class="text-xs text-[var(--color-muted)] mt-0.5">{s.programme ?? "General enquiry"}</div>
+                        </div>
+                      </div>
+                      <div class="text-sm text-[var(--color-ink-soft)]">
+                        <div>{s.email}</div>
+                        <div class="text-xs text-[var(--color-muted)] mt-0.5">{s.phone}</div>
+                      </div>
+                      <div class="text-xs text-[var(--color-muted)]">{formatDate(s.createdAt)}</div>
+                      <span class="chevron text-2xl leading-none text-[var(--color-gold-deep)] transition-transform justify-self-end">+</span>
+                    </div>
+                  </summary>
+
+                  <div class="px-6 pb-6 pt-0 border-t border-[var(--color-line)]">
+                    <div class="pt-5 grid md:grid-cols-2 gap-6">
+                      <dl class="space-y-3 text-sm">
+                        <div><dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Name</dt><dd class="mt-1 text-[var(--color-ink)]">{s.name}</dd></div>
+                        <div><dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Email</dt><dd class="mt-1"><a href={`mailto:${s.email}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold-deep)] underline underline-offset-2">{s.email}</a></dd></div>
+                        <div><dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Phone</dt><dd class="mt-1"><a href={`tel:${s.phone}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold-deep)]">{s.phone}</a></dd></div>
+                        <div><dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Role</dt><dd class="mt-1 text-[var(--color-ink)]">{s.role ?? "—"}</dd></div>
+                        <div><dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Programme of Interest</dt><dd class="mt-1 text-[var(--color-ink)]">{s.programme ?? "—"}</dd></div>
+                      </dl>
+                      <div>
+                        <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Message</dt>
+                        <dd class="mt-2 text-sm text-[var(--color-ink-soft)] leading-relaxed whitespace-pre-wrap rounded-xl bg-[var(--color-cream)] border border-[var(--color-line)] p-4 min-h-[100px]">{s.message || "(no message)"}</dd>
+                        <div class="mt-4 text-[11px] text-[var(--color-muted)] space-y-1">
+                          <div>Submitted: {formatDate(s.createdAt)}</div>
+                          {s.ip && <div>IP: {s.ip}</div>}
+                          {s.userAgent && <div class="truncate">UA: {s.userAgent}</div>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap items-center gap-3 pt-5 border-t border-[var(--color-line)]">
+                      {!s.readAt && (
+                        <form method="POST" action="/api/admin/action">
+                          <input type="hidden" name="action" value="mark-read" />
+                          <input type="hidden" name="id" value={s.id} />
+                          <button type="submit" class="text-sm px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]">Mark read</button>
+                        </form>
+                      )}
+                      <a href={`mailto:${s.email}?subject=${encodeURIComponent("Re: Enquiry at Knowledge IAS Academy")}`} class="text-sm px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]">Reply by email</a>
+                      <form method="POST" action="/api/admin/action" class="ml-auto" onsubmit="return confirm('Delete this submission permanently?')">
+                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="id" value={s.id} />
+                        <button type="submit" class="text-sm px-3 py-1.5 rounded-full border border-red-200 text-red-700 hover:bg-red-50">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </details>
+              ))}
+            </div>
+          )}
+        </section>
       )}
 
-      {total > 0 && (
-        <div class="mt-8 space-y-3">
-          {submissions.map((s) => (
-            <details class={`card overflow-hidden ${!s.readAt ? "ring-2 ring-[var(--color-gold)]/60" : ""}`}>
-              <summary class="px-6 py-5 hover:bg-[var(--color-gold-soft)]/30 transition-colors">
-                <div class="grid md:grid-cols-[1fr_1fr_1fr_auto] gap-4 items-center">
-                  <div class="flex items-center gap-3">
-                    {!s.readAt && <span class="h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none" aria-label="unread"></span>}
-                    <div>
-                      <div class="font-medium text-[var(--color-ink)]">{s.name}</div>
-                      <div class="text-xs text-[var(--color-muted)] mt-0.5">{s.programme ?? "General enquiry"}</div>
-                    </div>
-                  </div>
-                  <div class="text-sm text-[var(--color-ink-soft)]">
-                    <div>{s.email}</div>
-                    <div class="text-xs text-[var(--color-muted)] mt-0.5">{s.phone}</div>
-                  </div>
-                  <div class="text-xs text-[var(--color-muted)]">{formatDate(s.createdAt)}</div>
-                  <span class="chevron text-2xl leading-none text-[var(--color-gold-deep)] transition-transform justify-self-end">+</span>
-                </div>
-              </summary>
+      {tab === "newsletter" && (
+        <section class="mt-8">
+          {totalSubscribers === 0 && (
+            <div class="card p-12 text-center">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto opacity-70">
+                <path d="M3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9a9 9 0 0 1-6.36-2.64"></path>
+                <path d="M3 4v8h8"></path>
+              </svg>
+              <h2 class="mt-4 font-serif text-2xl">No subscribers yet</h2>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">Emails entered in the footer subscribe form will appear here.</p>
+            </div>
+          )}
 
-              <div class="px-6 pb-6 pt-0 border-t border-[var(--color-line)] mt-0">
-                <div class="pt-5 grid md:grid-cols-2 gap-6">
-                  <dl class="space-y-3 text-sm">
-                    <div>
-                      <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Name</dt>
-                      <dd class="mt-1 text-[var(--color-ink)]">{s.name}</dd>
-                    </div>
-                    <div>
-                      <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Email</dt>
-                      <dd class="mt-1"><a href={`mailto:${s.email}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold-deep)] underline underline-offset-2">{s.email}</a></dd>
-                    </div>
-                    <div>
-                      <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Phone</dt>
-                      <dd class="mt-1"><a href={`tel:${s.phone}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold-deep)]">{s.phone}</a></dd>
-                    </div>
-                    <div>
-                      <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Role</dt>
-                      <dd class="mt-1 text-[var(--color-ink)]">{s.role ?? "—"}</dd>
-                    </div>
-                    <div>
-                      <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Programme of Interest</dt>
-                      <dd class="mt-1 text-[var(--color-ink)]">{s.programme ?? "—"}</dd>
-                    </div>
-                  </dl>
-                  <div>
-                    <dt class="text-xs uppercase tracking-wider text-[var(--color-muted)]">Message</dt>
-                    <dd class="mt-2 text-sm text-[var(--color-ink-soft)] leading-relaxed whitespace-pre-wrap rounded-xl bg-[var(--color-cream)] border border-[var(--color-line)] p-4 min-h-[100px]">{s.message || "(no message)"}</dd>
-
-                    <div class="mt-4 text-[11px] text-[var(--color-muted)] space-y-1">
-                      <div>Submitted: {formatDate(s.createdAt)}</div>
-                      {s.ip && <div>IP: {s.ip}</div>}
-                      {s.userAgent && <div class="truncate">UA: {s.userAgent}</div>}
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mt-6 flex flex-wrap items-center gap-3 pt-5 border-t border-[var(--color-line)]">
-                  {!s.readAt && (
-                    <form method="POST" action="/api/admin/action">
-                      <input type="hidden" name="action" value="mark-read" />
-                      <input type="hidden" name="id" value={s.id} />
-                      <button type="submit" class="text-sm px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]">Mark read</button>
-                    </form>
-                  )}
-                  <a href={`mailto:${s.email}?subject=${encodeURIComponent("Re: Enquiry at Knowledge IAS Academy")}`} class="text-sm px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]">Reply by email</a>
-                  <form method="POST" action="/api/admin/action" class="ml-auto" onsubmit="return confirm('Delete this submission permanently?')">
-                    <input type="hidden" name="action" value="delete" />
-                    <input type="hidden" name="id" value={s.id} />
-                    <button type="submit" class="text-sm px-3 py-1.5 rounded-full border border-red-200 text-red-700 hover:bg-red-50">Delete</button>
-                  </form>
-                </div>
+          {totalSubscribers > 0 && (
+            <div class="card overflow-hidden">
+              <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-[var(--color-line)] bg-[var(--color-cream)]">
+                <p class="text-sm">
+                  <span class="font-semibold">{totalSubscribers}</span> subscribers
+                </p>
+                <a
+                  href={`data:text/csv;charset=utf-8,${encodeURIComponent(toCsv(subscribers.map((s) => ({ email: s.email, subscribed_at: s.createdAt }))))}`}
+                  download="knowledgeias-newsletter.csv"
+                  class="text-xs px-3 py-1.5 rounded-full border border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]"
+                >
+                  Export CSV
+                </a>
               </div>
-            </details>
-          ))}
-        </div>
+              <table class="w-full text-sm">
+                <thead class="text-left bg-white/50">
+                  <tr class="text-xs uppercase tracking-wider text-[var(--color-muted)]">
+                    <th class="px-6 py-3 font-medium">Email</th>
+                    <th class="px-6 py-3 font-medium">Subscribed</th>
+                    <th class="px-6 py-3 font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subscribers.map((s) => (
+                    <tr class="border-t border-[var(--color-line)] hover:bg-[var(--color-gold-soft)]/30">
+                      <td class="px-6 py-3.5">
+                        <a href={`mailto:${s.email}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold-deep)] underline underline-offset-2">
+                          {s.email}
+                        </a>
+                      </td>
+                      <td class="px-6 py-3.5 text-[var(--color-muted)]">{formatDate(s.createdAt)}</td>
+                      <td class="px-6 py-3.5 text-right">
+                        <form method="POST" action="/api/admin/action" onsubmit="return confirm('Unsubscribe this email?')">
+                          <input type="hidden" name="action" value="delete-subscriber" />
+                          <input type="hidden" name="id" value={s.id} />
+                          <button type="submit" class="text-xs px-2.5 py-1 rounded-full border border-red-200 text-red-700 hover:bg-red-50">Remove</button>
+                        </form>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
       )}
 
       <p class="mt-12 text-xs text-[var(--color-muted)]">
-        Data is stored locally in <code class="bg-[var(--color-gold-soft)] px-1 py-0.5 rounded">site/data/submissions.json</code>. Do not commit that file to git.
+        {storeMode === "redis"
+          ? "Data is stored in Upstash Redis (connected via Vercel)."
+          : "Data is stored locally in site/data/ (JSON files — do not commit)."
+        }
       </p>
     </main>
   </body>
