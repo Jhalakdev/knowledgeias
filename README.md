@@ -1,13 +1,14 @@
 # Knowledge IAS Academy — Official Website
 
-The marketing site for **Knowledge IAS Academy**, a premier UPSC coaching institute led by Mr. Ajay Sah. Home to our flagship programme **FOCUS SCHOOL** — built for school students aspiring to the Civil Services.
+The marketing site for **Knowledge IAS Academy**, a premier online UPSC coaching academy led by Mr. Ajay Sah. Home to our flagship programme **FOCUS SCHOOL** — built for school students aspiring to the Civil Services.
 
 Live domain: [knowledgeias.in](https://knowledgeias.in)
 
 ## Tech
 
-- **Astro 5** — static site generator, zero client-side JS by default
+- **Astro 5** (server output) — zero client-side JS on most pages, serverless functions on Vercel
 - **Tailwind CSS v4** — design tokens for the black / amber / cream palette pulled from the logo
+- **Upstash Redis** (via Vercel Marketplace) — persistent storage for contact enquiries and newsletter subscribers; falls back to local JSON files in dev
 - **Google Fonts** — Fraunces (serif headings) + Inter (body)
 
 ## Pages
@@ -20,30 +21,22 @@ Live domain: [knowledgeias.in](https://knowledgeias.in)
 | `/focus-school` | Flagship programme with full curriculum |
 | `/directors-message` | Message from Director Mr. Ajay Sah |
 | `/messages` | Testimonials from serving civil servants |
-| `/gallery` | Photo gallery |
-| `/contact` | Contact form + address |
+| `/gallery` | Photo gallery with lightbox |
+| `/contact` | Contact form + channels |
+| `/admin` | Private dashboard (login required) — enquiries + newsletter subscribers |
 
 ## Local development
 
 ```bash
-cd site
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # static output in site/dist/
+npm run build    # production build
 npm run preview  # preview production build
 ```
 
 ## Deployment
 
-Deploy the `site/` directory to any static host (Vercel, Netlify, Cloudflare Pages). The build output is plain HTML/CSS — no server needed.
-
-## Contact form
-
-The form on `/contact` currently logs submissions to the browser console only. To receive real submissions, wire the form handler in [`site/src/pages/contact.astro`](site/src/pages/contact.astro) to one of:
-
-- **Formspree** — drop-in endpoint, free tier
-- **Resend** — email delivery via a Vercel/Netlify serverless function
-- **A custom API route** — Astro supports server endpoints when switched from static to hybrid/server output
+See [DEPLOY.md](DEPLOY.md) for the Vercel setup — import repo, add the Upstash Redis integration, set three env vars, click Deploy.
 
 ---
 

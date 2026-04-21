@@ -30,5 +30,5 @@ pnpm-debug.log*
 New edit Broucher *.pdf.docx
 
 # runtime data (contact form submissions — never commit real enquiries)
-site/data/
+data/
 

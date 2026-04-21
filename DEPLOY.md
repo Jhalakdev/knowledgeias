@@ -4,7 +4,7 @@ Everything the site needs — contact form, admin panel, newsletter — runs on 
 
 ## TL;DR
 
-1. Import the GitHub repo into Vercel — pick the `site/` directory as the root.
+1. Import the GitHub repo into Vercel — Vercel auto-detects Astro at the repo root.
 2. In **Storage** → **Create Database** → add **Upstash for Redis** (free tier).
 3. In **Settings → Environment Variables**, set `ADMIN_USER`, `ADMIN_PASS`, `SESSION_SECRET`.
 4. Click **Deploy**.
@@ -19,9 +19,8 @@ The first deploy creates your production URL (e.g. `knowledgeias.vercel.app`). C
 
 1. Go to [vercel.com/new](https://vercel.com/new).
 2. Sign in with GitHub and select **Jhalakdev/knowledgeias**.
-3. **Important — set the Root Directory to `site`** (the Astro project lives in that subfolder, not at the repo root).
-4. Framework Preset → Astro (auto-detected once Root is set).
-5. Don't click Deploy yet — we'll add env vars and storage first.
+3. Framework Preset → Astro (auto-detected).
+4. Don't click Deploy yet — we'll add env vars and storage first.
 
 ### 2 · Add Upstash Redis (storage for enquiries & newsletter)
 
@@ -77,16 +76,13 @@ After the first deploy, smoke-test everything:
 
 ## Local development
 
-From the repo root:
-
 ```bash
-cd site
 cp .env.example .env.local   # optional; defaults work fine
 npm install
 npm run dev                  # http://localhost:4321
 ```
 
-When no `KV_REST_API_URL` is set, the site automatically uses `site/data/*.json` for storage — so you can test everything offline. The admin panel shows a small **"Local file"** badge in dev and **"Redis"** in production so you always know which backend is active.
+When no `KV_REST_API_URL` is set, the site automatically uses `data/*.json` for storage — so you can test everything offline. The admin panel shows a small **"Local file"** badge in dev and **"Redis"** in production so you always know which backend is active.
 
 ---
 
