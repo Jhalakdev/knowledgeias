@@ -1,11 +1,29 @@
 ---
 const year = new Date().getFullYear();
+
+const socials = [
+  {
+    href: "https://www.instagram.com/knowledge_ias_academy",
+    label: "Instagram",
+    path: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z",
+  },
+  {
+    href: "https://youtube.com/@knowledgeiasacademy",
+    label: "YouTube",
+    path: "M22 12s0-3.5-.5-5.2A2.8 2.8 0 0 0 19.5 5C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5A2.8 2.8 0 0 0 2.5 6.8C2 8.5 2 12 2 12s0 3.5.5 5.2A2.8 2.8 0 0 0 4.5 19c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a2.8 2.8 0 0 0 2-1.8c.5-1.7.5-5.2.5-5.2zM10 15.3V8.7l5.5 3.3L10 15.3z",
+  },
+  {
+    href: "https://www.facebook.com/share/1adu4VRkK6/?mibextid=wwXIfr",
+    label: "Facebook",
+    path: "M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z",
+  },
+];
 ---
 <footer class="mt-28 bg-[var(--color-ink)] text-[var(--color-cream)] relative overflow-hidden">
   <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(circle at 15% 20%, #f5a623 0, transparent 45%), radial-gradient(circle at 85% 80%, #f5a623 0, transparent 45%);"></div>
   <div class="absolute inset-0 jali-pattern opacity-30"></div>
 
-  <!-- Newsletter / visit strip -->
+  <!-- Newsletter strip -->
   <div class="relative border-b border-white/10">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 py-10 grid md:grid-cols-[1.5fr_1fr] gap-8 items-center">
       <div>
@@ -78,21 +96,15 @@ const year = new Date().getFullYear();
         <img src="/logo.png" alt="Knowledge IAS" class="h-20 w-auto object-contain" style="filter: brightness(0) invert(1);" />
       </div>
       <p class="mt-4 text-sm leading-relaxed text-[rgba(250,246,236,0.72)]">
-        A premier academy guiding aspirants of the UPSC Civil Services Examination. Home to <span class="text-[var(--color-gold)]">FOCUS&nbsp;SCHOOL</span> — our flagship programme for school students aspiring to serve the nation.
+        A premier <span class="text-[var(--color-gold)]">online academy</span> guiding aspirants of the UPSC Civil Services Examination. Home to <span class="text-[var(--color-gold)]">FOCUS&nbsp;SCHOOL</span> — our flagship programme for school students aspiring to serve the nation.
       </p>
 
-      <!-- Social icons -->
       <div class="mt-6 flex gap-3">
-        {[
-          { href: "https://instagram.com", label: "Instagram", path: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" },
-          { href: "https://youtube.com", label: "YouTube", path: "M22 12s0-3.5-.5-5.2A2.8 2.8 0 0 0 19.5 5C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5A2.8 2.8 0 0 0 2.5 6.8C2 8.5 2 12 2 12s0 3.5.5 5.2A2.8 2.8 0 0 0 4.5 19c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a2.8 2.8 0 0 0 2-1.8c.5-1.7.5-5.2.5-5.2zM10 15.3V8.7l5.5 3.3L10 15.3z" },
-          { href: "https://www.linkedin.com", label: "LinkedIn", path: "M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.11 2.06 2.06 0 0 1 0 4.11zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .87 0 1.95v20.1C0 23.13.9 24 2 24h20c1.1 0 2-.87 2-1.95V1.95C24 .87 23.1 0 22 0z" },
-          { href: "https://twitter.com", label: "X (Twitter)", path: "M18.244 2H21l-6.53 7.463L22 22h-6.873l-4.8-6.289L4.8 22H2l7-8 -7 -12h6.914l4.343 5.744L18.244 2zm-2.41 18.25h1.85L8.26 3.65H6.275l9.56 16.6z" },
-        ].map((s) => (
+        {socials.map((s) => (
           <a
             href={s.href}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             aria-label={s.label}
             class="h-10 w-10 rounded-full border border-white/15 text-[rgba(250,246,236,0.8)] hover:text-[var(--color-ink)] hover:bg-[var(--color-gold)] hover:border-[var(--color-gold)] flex items-center justify-center transition-colors"
           >
@@ -116,20 +128,18 @@ const year = new Date().getFullYear();
 
     <div>
       <h4 class="text-sm tracking-[0.22em] uppercase text-[var(--color-gold)] font-sans font-semibold">Contact</h4>
-      <address class="mt-5 not-italic text-sm leading-relaxed text-[rgba(250,246,236,0.82)] space-y-3">
+      <address class="mt-5 not-italic text-sm leading-relaxed text-[rgba(250,246,236,0.82)] space-y-4">
         <div>
-          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Visit</span>
-          Knowledge IAS Academy<br />
-          2nd Floor, 21-B, Old Rajinder Nagar<br />
-          New Delhi — 110060, India
+          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Mode</span>
+          100% Online · PAN India
         </div>
         <div>
-          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Call</span>
-          <a href="tel:+911141234567" class="link-underline hover:text-[var(--color-gold)]">+91 11 4123 4567</a>
+          <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Call / WhatsApp</span>
+          <a href="tel:+918329544987" class="link-underline hover:text-[var(--color-gold)]">+91 83295 44987</a>
         </div>
         <div>
           <span class="block text-[11px] uppercase tracking-widest text-[rgba(250,246,236,0.5)]">Email</span>
-          <a href="mailto:info@knowledgeias.in" class="link-underline hover:text-[var(--color-gold)]">info@knowledgeias.in</a>
+          <a href="mailto:knowledge4ias@gmail.com" class="link-underline hover:text-[var(--color-gold)]">knowledge4ias@gmail.com</a>
         </div>
       </address>
     </div>
