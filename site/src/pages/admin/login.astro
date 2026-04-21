@@ -1,0 +1,90 @@
+---
+export const prerender = false;
+import "../../styles/global.css";
+
+const error = Astro.url.searchParams.get("e") === "1";
+const next = Astro.url.searchParams.get("next") ?? "/admin";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Admin Login — Knowledge IAS</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body class="min-h-screen flex items-center justify-center p-5 bg-[var(--color-cream)]">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+      <div class="absolute top-0 right-0 w-[55%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,rgba(245,166,35,0.18),transparent_70%)]"></div>
+      <div class="absolute bottom-0 left-0 w-[55%] h-[70%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(245,166,35,0.12),transparent_70%)]"></div>
+    </div>
+
+    <main class="w-full max-w-md">
+      <a href="/" class="flex items-center justify-center mb-8" aria-label="Knowledge IAS home">
+        <img src="/logo.png" alt="Knowledge IAS" class="h-16 w-auto object-contain" />
+      </a>
+
+      <div class="card p-8">
+        <span class="chip">Admin Access</span>
+        <h1 class="mt-4 font-serif text-3xl text-[var(--color-ink)]">Sign in</h1>
+        <p class="mt-2 text-sm text-[var(--color-muted)]">View and manage contact form submissions from the academy website.</p>
+
+        {error && (
+          <div class="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            Incorrect username or password.
+          </div>
+        )}
+
+        <form method="POST" action="/api/admin/login" class="mt-6 space-y-5">
+          <input type="hidden" name="next" value={next} />
+
+          <label class="block">
+            <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Username</span>
+            <input
+              type="text"
+              name="username"
+              required
+              autocomplete="username"
+              autofocus
+              class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors text-[var(--color-ink)]"
+              placeholder="admin"
+            />
+          </label>
+
+          <label class="block">
+            <span class="block text-xs uppercase tracking-[0.15em] font-semibold text-[var(--color-ink-soft)]">Password</span>
+            <input
+              type="password"
+              name="password"
+              required
+              autocomplete="current-password"
+              class="mt-2 w-full bg-transparent border-b border-[var(--color-line)] focus:border-[var(--color-gold-deep)] py-2 outline-none transition-colors"
+              placeholder="••••••••"
+            />
+          </label>
+
+          <button type="submit" class="btn-primary w-full justify-center">
+            Sign in
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </form>
+
+        <p class="mt-6 text-xs text-[var(--color-muted)] leading-relaxed">
+          Default login — user <code class="bg-[var(--color-gold-soft)] px-1.5 py-0.5 rounded">admin</code> · password <code class="bg-[var(--color-gold-soft)] px-1.5 py-0.5 rounded">knowledgeias2026</code>. Change these in the project's <code>.env</code> file.
+        </p>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-[var(--color-muted)]">
+        <a href="/" class="hover:text-[var(--color-gold-deep)]">← Back to website</a>
+      </p>
+    </main>
+  </body>
+</html>

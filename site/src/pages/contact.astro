@@ -214,10 +214,15 @@ import Layout from "../layouts/Layout.astro";
     label.textContent = "Sending…";
 
     try {
-      // Local/dev: no backend yet — simulate success and log payload.
-      // When deployed, replace this block with a POST to /api/contact or Formspree/Resend.
-      await new Promise((r) => setTimeout(r, 650));
-      console.info("[contact] payload", payload);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.ok === false) {
+        throw new Error(body.error || "Request failed");
+      }
       form.reset();
       show("ok", "Thank you — your message has been received. Our counselling team will reach out within one working day.");
     } catch (err) {

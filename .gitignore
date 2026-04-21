@@ -28,3 +28,6 @@ pnpm-debug.log*
 # source materials (not pushed to git — brochure contains private syllabus content)
 New edit Broucher *.pdf.docx
 
+# runtime data (contact form submissions — never commit real enquiries)
+site/data/
+
