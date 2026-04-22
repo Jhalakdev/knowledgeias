@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { Redis } from "@upstash/redis";
+import { createClient, type RedisClientType } from "redis";
 
 /* ==================== Types ==================== */
 
@@ -37,8 +37,6 @@ type StoreBackend = {
   listSubscribers(): Promise<NewsletterSubscriber[]>;
   deleteSubscriber(id: string): Promise<boolean>;
 };
-
-/* ==================== ID helper ==================== */
 
 function makeId() {
   return globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
@@ -137,10 +135,24 @@ function makeFileBackend(): StoreBackend {
 
 /* ==================== Redis backend (production on Vercel) ==================== */
 
-function makeRedisBackend(): StoreBackend {
-  const url = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL!;
-  const token = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN!;
-  const redis = new Redis({ url, token });
+function makeRedisBackend(url: string): StoreBackend {
+  // Reused across invocations in the same serverless instance (warm starts).
+  let clientPromise: Promise<RedisClientType> | null = null;
+
+  async function getClient(): Promise<RedisClientType> {
+    if (clientPromise) {
+      const existing = await clientPromise;
+      if (existing.isReady) return existing;
+      clientPromise = null;
+    }
+    clientPromise = (async () => {
+      const c = createClient({ url }) as RedisClientType;
+      c.on("error", (err) => console.error("[redis] client error:", err));
+      await c.connect();
+      return c;
+    })();
+    return clientPromise;
+  }
 
   const K = {
     sub: (id: string) => `kias:sub:${id}`,
@@ -151,85 +163,104 @@ function makeRedisBackend(): StoreBackend {
     nlEmail: (email: string) => `kias:nl:email:${email.toLowerCase()}`,
   };
 
-  async function getMany<T>(ids: string[], keyFn: (id: string) => string): Promise<T[]> {
-    if (ids.length === 0) return [];
-    const keys = ids.map(keyFn);
-    const results = (await redis.mget<(T | null)[]>(...keys)) ?? [];
-    return results.filter((r): r is T => r !== null);
+  async function mgetJson<T>(r: RedisClientType, keys: string[]): Promise<T[]> {
+    if (keys.length === 0) return [];
+    const values = await r.mGet(keys);
+    return values
+      .map((v) => {
+        if (!v) return null;
+        try { return JSON.parse(v) as T; } catch { return null; }
+      })
+      .filter((v): v is T => v !== null);
   }
 
   return {
     async addSubmission(input) {
       const sub: Submission = { id: makeId(), createdAt: new Date().toISOString(), ...input };
+      const r = await getClient();
       const score = Date.parse(sub.createdAt);
       await Promise.all([
-        redis.set(K.sub(sub.id), sub),
-        redis.zadd(K.subIndex, { score, member: sub.id }),
-        redis.sadd(K.subUnread, sub.id),
+        r.set(K.sub(sub.id), JSON.stringify(sub)),
+        r.zAdd(K.subIndex, { score, value: sub.id }),
+        r.sAdd(K.subUnread, sub.id),
       ]);
       return sub;
     },
     async listSubmissions() {
-      const ids = (await redis.zrange<string[]>(K.subIndex, 0, -1, { rev: true })) ?? [];
-      return getMany<Submission>(ids, K.sub);
+      const r = await getClient();
+      const ids = await r.zRange(K.subIndex, 0, -1, { REV: true });
+      if (ids.length === 0) return [];
+      return mgetJson<Submission>(r, ids.map(K.sub));
     },
     async countUnreadSubmissions() {
-      return (await redis.scard(K.subUnread)) ?? 0;
+      const r = await getClient();
+      return r.sCard(K.subUnread);
     },
     async markSubmissionRead(id) {
-      const sub = await redis.get<Submission>(K.sub(id));
-      if (!sub) return false;
+      const r = await getClient();
+      const raw = await r.get(K.sub(id));
+      if (!raw) return false;
+      const sub = JSON.parse(raw) as Submission;
       if (sub.readAt) return true;
       sub.readAt = new Date().toISOString();
-      await Promise.all([redis.set(K.sub(id), sub), redis.srem(K.subUnread, id)]);
+      await Promise.all([r.set(K.sub(id), JSON.stringify(sub)), r.sRem(K.subUnread, id)]);
       return true;
     },
     async markAllSubmissionsRead() {
-      const unread = (await redis.smembers(K.subUnread)) ?? [];
+      const r = await getClient();
+      const unread = await r.sMembers(K.subUnread);
       if (unread.length === 0) return;
       const now = new Date().toISOString();
-      const subs = await getMany<Submission>(unread, K.sub);
-      await Promise.all(subs.map((s) => redis.set(K.sub(s.id), { ...s, readAt: now })));
-      await redis.del(K.subUnread);
+      const subs = await mgetJson<Submission>(r, unread.map(K.sub));
+      await Promise.all(
+        subs.map((s) => r.set(K.sub(s.id), JSON.stringify({ ...s, readAt: now })))
+      );
+      await r.del(K.subUnread);
     },
     async deleteSubmission(id) {
-      const exists = await redis.exists(K.sub(id));
+      const r = await getClient();
+      const exists = await r.exists(K.sub(id));
       if (!exists) return false;
       await Promise.all([
-        redis.del(K.sub(id)),
-        redis.zrem(K.subIndex, id),
-        redis.srem(K.subUnread, id),
+        r.del(K.sub(id)),
+        r.zRem(K.subIndex, id),
+        r.sRem(K.subUnread, id),
       ]);
       return true;
     },
 
     async addSubscriber(email, ip) {
+      const r = await getClient();
       const key = K.nlEmail(email);
-      const existingId = await redis.get<string>(key);
+      const existingId = await r.get(key);
       if (existingId) {
-        const existing = await redis.get<NewsletterSubscriber>(K.nl(existingId));
-        if (existing) return { subscriber: existing, alreadyExists: true };
+        const raw = await r.get(K.nl(existingId));
+        if (raw) return { subscriber: JSON.parse(raw) as NewsletterSubscriber, alreadyExists: true };
       }
       const sub: NewsletterSubscriber = { id: makeId(), email, ip, createdAt: new Date().toISOString() };
       const score = Date.parse(sub.createdAt);
       await Promise.all([
-        redis.set(K.nl(sub.id), sub),
-        redis.zadd(K.nlIndex, { score, member: sub.id }),
-        redis.set(key, sub.id),
+        r.set(K.nl(sub.id), JSON.stringify(sub)),
+        r.zAdd(K.nlIndex, { score, value: sub.id }),
+        r.set(key, sub.id),
       ]);
       return { subscriber: sub, alreadyExists: false };
     },
     async listSubscribers() {
-      const ids = (await redis.zrange<string[]>(K.nlIndex, 0, -1, { rev: true })) ?? [];
-      return getMany<NewsletterSubscriber>(ids, K.nl);
+      const r = await getClient();
+      const ids = await r.zRange(K.nlIndex, 0, -1, { REV: true });
+      if (ids.length === 0) return [];
+      return mgetJson<NewsletterSubscriber>(r, ids.map(K.nl));
     },
     async deleteSubscriber(id) {
-      const sub = await redis.get<NewsletterSubscriber>(K.nl(id));
-      if (!sub) return false;
+      const r = await getClient();
+      const raw = await r.get(K.nl(id));
+      if (!raw) return false;
+      const sub = JSON.parse(raw) as NewsletterSubscriber;
       await Promise.all([
-        redis.del(K.nl(id)),
-        redis.zrem(K.nlIndex, id),
-        redis.del(K.nlEmail(sub.email)),
+        r.del(K.nl(id)),
+        r.zRem(K.nlIndex, id),
+        r.del(K.nlEmail(sub.email)),
       ]);
       return true;
     },
@@ -238,17 +269,14 @@ function makeRedisBackend(): StoreBackend {
 
 /* ==================== Backend selection ==================== */
 
-const hasRedis = Boolean(
-  (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
-  (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
-);
+const redisUrl = process.env.REDIS_URL || process.env.KV_URL;
 
-const backend: StoreBackend = hasRedis ? makeRedisBackend() : makeFileBackend();
+const backend: StoreBackend = redisUrl ? makeRedisBackend(redisUrl) : makeFileBackend();
 
-if (!hasRedis && process.env.VERCEL) {
+if (!redisUrl && process.env.VERCEL) {
   console.warn(
-    "[store] Running on Vercel without Upstash Redis env vars. Submissions will not persist. " +
-    "Add an Upstash Redis / Vercel KV integration from the Vercel dashboard."
+    "[store] Running on Vercel without REDIS_URL. Submissions will fail. " +
+    "Add a Redis database from the Storage tab in the Vercel dashboard."
   );
 }
 
@@ -264,4 +292,4 @@ export const {
   deleteSubscriber,
 } = backend;
 
-export const storeMode: "redis" | "file" = hasRedis ? "redis" : "file";
+export const storeMode: "redis" | "file" = redisUrl ? "redis" : "file";
