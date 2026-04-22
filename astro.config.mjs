@@ -9,6 +9,13 @@ export default defineConfig({
     webAnalytics: { enabled: false },
     maxDuration: 30,
   }),
+  security: {
+    // Disabled because Vercel's edge routing can strip/rewrite the Origin
+    // header, causing Astro to wrongly reject legitimate same-site POSTs.
+    // Admin routes stay protected by password + HMAC-signed httpOnly
+    // session cookies set/read on the server.
+    checkOrigin: false,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
