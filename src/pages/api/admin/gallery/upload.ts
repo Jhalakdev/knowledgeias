@@ -40,6 +40,13 @@ export const POST: APIRoute = async ({ request }) => {
     return Response.json({ ok: true, image });
   } catch (e) {
     console.error("[admin/gallery/upload] failed", e);
+    const msg = String((e as { message?: string } | null)?.message ?? "");
+    if (msg.includes("BLOB_READ_WRITE_TOKEN") || msg.toLowerCase().includes("token")) {
+      return Response.json(
+        { ok: false, error: "Blob storage isn't configured. Enable Blob in Vercel → Storage tab, then redeploy." },
+        { status: 503 }
+      );
+    }
     return Response.json({ ok: false, error: "Upload failed" }, { status: 500 });
   }
 };

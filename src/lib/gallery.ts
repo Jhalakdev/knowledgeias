@@ -298,18 +298,25 @@ function makeBlobBackend(redisUrl: string): GalleryBackend {
 const redisUrl = process.env.REDIS_URL || process.env.KV_URL;
 const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
 
-const backend: GalleryBackend = redisUrl && blobToken
-  ? makeBlobBackend(redisUrl)
-  : makeFileBackend();
+// Prefer Redis when available — Blob is only required to upload new binaries.
+// Without Blob, listing/seeding/captions/delete still work via Redis metadata.
+const backend: GalleryBackend = redisUrl ? makeBlobBackend(redisUrl) : makeFileBackend();
 
-if (process.env.VERCEL && (!redisUrl || !blobToken)) {
+if (process.env.VERCEL && !redisUrl) {
   console.warn(
-    "[gallery] Running on Vercel without REDIS_URL and/or BLOB_READ_WRITE_TOKEN. " +
-    "Gallery uploads will fail. Enable both Redis and Blob storage in the Vercel dashboard."
+    "[gallery] Running on Vercel without REDIS_URL. Gallery will not function. " +
+    "Add Redis storage in the Vercel dashboard."
+  );
+}
+if (process.env.VERCEL && !blobToken) {
+  console.warn(
+    "[gallery] BLOB_READ_WRITE_TOKEN is not set. Existing images will display, " +
+    "but new uploads will fail. Enable Blob storage in the Vercel dashboard."
   );
 }
 
-export const galleryMode: "blob" | "file" = redisUrl && blobToken ? "blob" : "file";
+export const galleryMode: "blob" | "file" = redisUrl ? "blob" : "file";
+export const galleryUploadsEnabled = Boolean(blobToken) || !redisUrl;
 export const addGalleryImage = backend.add;
 export const deleteGalleryImage = backend.remove;
 export const updateGalleryCaption = backend.updateCaption;
@@ -336,6 +343,11 @@ async function seedDefaultsIfNeeded() {
 }
 
 export async function listGalleryImages(): Promise<GalleryImage[]> {
-  await seedDefaultsIfNeeded();
-  return backend.list();
+  try {
+    await seedDefaultsIfNeeded();
+    return await backend.list();
+  } catch (e) {
+    console.error("[gallery] list failed — returning empty", e);
+    return [];
+  }
 }
