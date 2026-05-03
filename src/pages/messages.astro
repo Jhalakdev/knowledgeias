@@ -4,41 +4,43 @@ import Layout from "../layouts/Layout.astro";
 const messages = [
   {
     quote:
-      "Knowledge IAS taught me how to read a newspaper — not just to glance, but to build a mental map. That single habit carried me through Prelims and Mains.",
-    name: "A. Iyer",
-    role: "IAS · Batch of 2021",
+      "As you embark on your academic journey, I encourage you to consider the invaluable habit of reading newspapers regularly, starting from your school days. Newspapers serve as windows to the world, providing insights into current events, societal trends, and global affairs. By immersing yourself in the pages of reputable publications, you not only stay informed but also develop essential skills such as critical thinking, analytical reasoning, and effective communication. Take the time to delve into diverse sections — from politics and economics to science and culture — broadening your understanding of the multifaceted world we inhabit. Cultivating this habit early not only enriches your knowledge base but also equips you with the tools necessary to excel in the competitive landscape of civil services examinations. So grab a newspaper, explore the headlines, and let each article be a stepping stone on your journey towards becoming a well-informed and impactful leader.",
+    name: "Amol Srivastava",
+    role: "IAS",
   },
   {
     quote:
-      "FOCUS SCHOOL made me fall in love with the idea of public service at fifteen. By the time I sat for CSE, I had already spent years thinking like an administrator.",
-    name: "R. Verma",
-    role: "IPS · Batch of 2023",
+      "As you navigate through your school days, I urge you to recognize the importance of honing your communication skills early on. Effective communication lies at the heart of leadership and success in the civil services. Start by actively participating in class discussions, debates, and public speaking events to cultivate confidence and clarity in expressing your ideas. Embrace opportunities to collaborate with peers, listen attentively, and articulate your thoughts persuasively. Engage in writing activities such as essays, articles, and creative pieces to refine your written communication skills. The ability to convey your thoughts concisely and convincingly is a valuable asset in every aspect of life — especially in the competitive landscape of civil services examinations. Seize every opportunity to sharpen your communication skills, and let your voice be heard as you embark on the journey towards serving the nation.",
+    name: "Nivrutti Ahvad",
+    role: "IAS",
   },
   {
     quote:
-      "What sets the academy apart is the quality of mentorship. Mr. Ajay Sah answered my essay drafts personally, well past midnight, week after week.",
-    name: "M. Nair",
-    role: "IFS · Batch of 2020",
+      "Preparation for the Civil Services Examination is a noble journey towards becoming leaders and change-makers in our society. As you navigate through your school days, I urge you to consider starting your preparation for the UPSC examinations early. While it may seem daunting, laying the groundwork during this formative period provides a distinct advantage. Use this time to familiarize yourself with the exam pattern, syllabus, and essential subjects. Cultivate a habit of consistent study and critical thinking, engaging with a variety of resources to broaden your understanding of diverse topics. Remember, Rome wasn't built in a day, and neither is success in the civil services. By starting your preparation now, you not only gain a head start but also develop the discipline and perseverance necessary to excel in this challenging yet rewarding journey. Believe in your potential, stay focused, and let your passion for serving the nation drive you towards your goals.",
+    name: "Shri Gopal Krishna Meena",
+    role: "IPS",
   },
   {
     quote:
-      "The Ethics classes changed how I read, wrote and reasoned. They don't just prepare you for GS IV — they prepare you for the service itself.",
-    name: "S. Khan",
-    role: "IRS · Batch of 2022",
+      "In the pursuit of your aspirations to serve the nation, I urge you to recognize the paramount importance of staying informed about current affairs from an early age. As you navigate through your school days, incorporating regular reading of current events into your routine is crucial. Familiarizing yourself with the socio-political landscape not only broadens your understanding of the world but also lays the groundwork for success in the UPSC examinations. Develop a habit of reading reputable newspapers, magazines, and online sources to stay abreast of national and international developments. Analyze and critically evaluate various perspectives on contemporary issues, honing your analytical and reasoning skills in the process. Staying informed is not just a preparatory step for the exams but a lifelong skill that empowers you to make informed decisions and contribute meaningfully to society. Start early, stay curious, and let your journey towards serving the nation begin today.",
+    name: "Rajkaran Agarwal",
+    role: "IRS",
   },
   {
     quote:
-      "If I had to recommend one academy to a school student serious about the Civil Services, it would be Knowledge IAS. The head start is real.",
-    name: "P. Das",
-    role: "IAS · Batch of 2019",
+      "As you embark on your academic journey, consider delving into the captivating world of biographies of renowned civil servants. Immersing yourself in the life stories of individuals who have made significant contributions to society can provide invaluable insights and inspiration. By reading about their trials, triumphs, and leadership journeys, you gain a deeper understanding of the challenges and responsibilities inherent in public service. These narratives not only offer valuable lessons in perseverance, integrity, and innovation but also serve as guiding lights on your path towards achieving your own aspirations. During your school days, seize the opportunity to explore the biographies of civil servants who have left indelible marks on history, and let their stories ignite the flame of passion and purpose within you as you prepare to make your own mark in the world.",
+    name: "Sagar Mulik",
+    role: "Deputy Collector",
   },
   {
     quote:
-      "Coming from a Tier-3 town, I worried I'd be out of my depth. The faculty here treated my doubts with the same seriousness as those of toppers.",
-    name: "K. Reddy",
-    role: "IRS · Batch of 2022",
+      "To all the young UPSC aspirants embarking on this challenging journey — remember that success is not just about the destination, but also about the journey. Embrace the process, learn from every setback, and stay resilient in the face of adversity. Cultivate a deep understanding of the subjects, but also hone your critical thinking and analytical skills. Surround yourself with positivity, seek guidance when needed, and never lose sight of your ultimate goal. Believe in your abilities, stay disciplined in your preparation, and trust that your hard work will eventually pay off. As you navigate through the ups and downs of this demanding path, remember that every step forward brings you closer to realizing your dreams. Stay focused, stay motivated, and never give up on your aspirations.",
+    name: "Akshay Pangarikar",
+    role: "Assistant Commandant, CISF",
   },
 ];
+
+const initialOf = (name: string) => name.replace(/^(Shri|Sri|Smt|Mr|Mrs|Dr)\.?\s+/i, "").charAt(0);
 ---
 <Layout title="Messages from Civil Servants — Knowledge IAS Academy">
   <section class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-12">
@@ -49,7 +51,7 @@ const messages = [
         Words from those who <span class="gold-underline-animated">wear the tricolour</span>.
       </h1>
       <p class="mt-6 text-lg text-[var(--color-muted)] max-w-3xl leading-relaxed">
-        Messages from serving IAS, IPS, IFS and IRS officers who began their journey with Knowledge IAS Academy.
+        Words of guidance from serving IAS, IPS, IRS officers and senior administrators — to school students dreaming of public service.
       </p>
     </div>
   </section>
@@ -66,7 +68,7 @@ const messages = [
             "{m.quote}"
           </blockquote>
           <figcaption class="mt-6 pt-6 border-t border-[var(--color-line)] flex items-center gap-4">
-            <div class="h-11 w-11 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center font-serif text-[var(--color-ink)]">{m.name.split(".")[0]}</div>
+            <div class="h-11 w-11 rounded-full bg-[var(--color-gold-soft)] flex items-center justify-center font-serif text-[var(--color-ink)]">{initialOf(m.name)}</div>
             <div>
               <p class="font-medium text-[var(--color-ink)]">{m.name}</p>
               <p class="text-xs uppercase tracking-widest text-[var(--color-muted)] mt-0.5">{m.role}</p>
@@ -76,6 +78,5 @@ const messages = [
       ))}
     </div>
 
-    <p class="mt-10 text-center text-sm text-[var(--color-muted)]">Placeholder messages — real officer testimonials will be added soon.</p>
   </section>
 </Layout>

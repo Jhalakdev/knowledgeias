@@ -326,3 +326,19 @@ details[open] .chevron {
 
 input, textarea, select { color: var(--color-ink); }
 input::placeholder, textarea::placeholder { color: #9a927c; }
+
+@keyframes wa-shake {
+  0%, 88%, 100% { transform: rotate(0); }
+  90% { transform: rotate(-14deg); }
+  92% { transform: rotate(12deg); }
+  94% { transform: rotate(-10deg); }
+  96% { transform: rotate(8deg); }
+  98% { transform: rotate(0); }
+}
+.wa-icon-shake {
+  animation: wa-shake 5s ease-in-out infinite;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-icon-shake { animation: none; }
+}

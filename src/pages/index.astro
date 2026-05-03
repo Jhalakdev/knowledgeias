@@ -34,10 +34,9 @@ const pillars = [
   },
 ];
 
-// Taught-at institutes (marquee)
-const institutes = [
-  "GS Score", "Next IAS", "Chanakya IAS", "Target UPSC", "Quest IAS",
-  "IIT Delhi", "IIT Bombay", "NIT Trichy", "BHU", "St. Stephen's College", "Hindu College",
+// Posts under UPSC (marquee)
+const upscPosts = [
+  "IAS", "IPS", "IFS", "IAAS", "IRS", "IRTS", "IDAS", "IPoS",
 ];
 ---
 
@@ -160,16 +159,16 @@ const institutes = [
       </div>
     </div>
 
-    <!-- Taught-at marquee -->
+    <!-- Marquee strip -->
     <div class="relative border-y border-[var(--color-line)] bg-white/60 backdrop-blur-sm">
       <div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 flex items-center gap-6">
         <div class="hidden md:flex items-center gap-2 flex-none">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <span class="text-[11px] uppercase tracking-[0.22em] text-[var(--color-muted)] font-semibold">Faculty taught at</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="text-[11px] uppercase tracking-[0.22em] text-[var(--color-muted)] font-semibold">Posts under UPSC</span>
         </div>
         <div class="marquee flex-1">
           <div class="marquee-track py-1">
-            {[...institutes, ...institutes].map((n) => (
+            {[...upscPosts, ...upscPosts].map((n) => (
               <span class="font-serif text-lg text-[var(--color-ink-soft)] whitespace-nowrap flex items-center gap-6">
                 {n}
                 <span class="inline-block h-1 w-1 rounded-full bg-[var(--color-gold)]"></span>

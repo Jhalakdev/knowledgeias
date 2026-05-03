@@ -1,28 +1,43 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const posts = [
-  "Indian Administrative Service (IAS)",
-  "Indian Foreign Service (IFS)",
-  "Indian Police Service (IPS)",
-  "Indian Audit & Accounts Service, Group A",
-  "Indian Civil Accounts Service, Group A",
-  "Indian Corporate Law Service, Group A",
-  "Indian Defence Accounts Service, Group A",
-  "Indian Defence Estates Service, Group A",
-  "Indian Information Service, Group A",
-  "Indian Postal Service, Group A",
-  "Indian P&T Accounts & Finance Service, Group A",
-  "Indian Railway Protection Force Service, Group A",
-  "Indian Revenue Service (Customs & Indirect Taxes), Group A",
-  "Indian Revenue Service (Income Tax), Group A",
-  "Indian Trade Service, Group A",
-  "Indian Railway Management Service, Group A",
-  "Armed Forces Headquarters Civil Service, Group B",
-  "DANICS, Group B",
-  "DANIPS, Group B",
-  "Pondicherry Civil Service (PONDICS), Group B",
-  "Pondicherry Police Service (PONDIPS), Group B",
+const postsByCategory = [
+  {
+    title: "All India Services",
+    items: [
+      "Indian Administrative Service (IAS)",
+      "Indian Police Service (IPS)",
+      "Indian Forest Service (IFoS)",
+    ],
+  },
+  {
+    title: "Group ‘A’ Services",
+    items: [
+      "Indian Foreign Service (IFS)",
+      "Indian Revenue Service (IRS) — Income Tax",
+      "Indian Revenue Service (IRS) — Customs & Indirect Taxes",
+      "Indian Audit and Accounts Service",
+      "Indian Civil Accounts Service",
+      "Indian Corporate Law Service",
+      "Indian Defence Accounts Service",
+      "Indian Defence Estates Service",
+      "Indian Information Service",
+      "Indian Postal Service",
+      "Indian Trade Service",
+      "Indian Railway Management Service",
+      "Indian Railway Protection Force Service",
+    ],
+  },
+  {
+    title: "Group ‘B’ Services",
+    items: [
+      "Armed Forces Headquarters Civil Service",
+      "DANICS (Delhi, Andaman & Nicobar Islands Civil Service)",
+      "DANIPS (Delhi, Andaman & Nicobar Islands Police Service)",
+      "Pondicherry Civil Service (PONDICS)",
+      "Pondicherry Police Service (PONDIPS)",
+    ],
+  },
 ];
 
 const prelimsTable = [
@@ -90,18 +105,39 @@ const faqs = [
     </div>
   </section>
 
+  <!-- About UPSC and the Civil Services Examination -->
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-12 prose-readable">
+    <h2 class="text-3xl">About UPSC and the Civil Services Examination</h2>
+    <div class="hairline my-6"></div>
+    <p>
+      India, as a parliamentary democracy, possesses a vast and deeply rooted administrative framework that has evolved over centuries. Governing a country of such geographical, cultural, and demographic diversity requires a highly efficient, disciplined, and professional administrative machinery. To ensure this, India has established multiple recruitment bodies such as the Union Public Service Commission, State Public Service Commissions, Staff Selection Commission, and Railway Recruitment Boards. Among these, the <strong>Union Public Service Commission (UPSC)</strong> holds a position of exceptional importance and prestige.
+    </p>
+    <p>
+      UPSC is a constitutional body created by the Government of India to conduct examinations for recruitment to various civil services and other key posts under the central government. It conducts several prominent examinations such as the Indian Engineering Services (IES), Combined Defence Services (CDS), Central Armed Police Forces (CAPF), and Combined Medical Services (CMS). However, the most prestigious and widely recognized examination conducted by UPSC is the <strong>Civil Services Examination (CSE)</strong>. Over time, the popularity and significance of this exam have been so profound that the term “UPSC” is often used interchangeably with the Civil Services Examination — when an individual says they are preparing for UPSC, they typically mean the Civil Services Examination.
+    </p>
+  </section>
+
   <!-- Historical Genesis -->
   <section class="max-w-5xl mx-auto px-5 sm:px-8 py-12 prose-readable">
     <h2 class="text-3xl">Historical Genesis of UPSC</h2>
     <div class="hairline my-6"></div>
     <p>
-      Civil Servants for the East India Company used to be nominated by the Directors of the Company and trained at Haileybury College in London. Following Lord Macaulay's Report of the Select Committee of British Parliament, the concept of a merit-based modern Civil Service in India was introduced in 1854. A Civil Service Commission was set up in London and competitive examinations began in 1855.
+      The origins of the civil services in India can be traced back to the colonial period under the East India Company. Initially, civil servants were nominated by the Company's directors and trained at Haileybury College in London before being posted to India. This system was largely based on patronage rather than merit.
     </p>
     <p>
-      Initially the examinations were conducted only in London. In 1864, Shri Satyendranath Tagore — brother of Rabindranath Tagore — became the first Indian to succeed. From 1922 onwards, the exam began to be held in India too — first in Allahabad, later in Delhi, with the setting up of the Federal Public Service Commission.
+      A major shift occurred after the recommendations of <strong>Thomas Babington Macaulay</strong> in 1854. His report advocated the introduction of a modern, merit-based civil service system in India. Consequently, a Civil Service Commission was established in London in 1854, and competitive examinations began in 1855. These early examinations were conducted exclusively in London, with an age limit of 18 to 23 years, and the syllabus heavily favoured European classical subjects — posing significant challenges for Indian candidates.
     </p>
     <p>
-      With the passing of the Government of India Act 1935, the Federal Public Service Commission was formed on 1 April 1937. With the inauguration of the Constitution of India on 26 January 1950, it was renamed the <strong>Union Public Service Commission</strong> by virtue of Article 378.
+      Despite these barriers, <strong>Satyendranath Tagore</strong> became the first Indian to qualify for the Indian Civil Service (ICS) in 1864, marking a historic milestone. Over time, more Indians succeeded, although their representation remained limited. For decades, there were demands to conduct the examinations simultaneously in India, but the British government resisted these changes to restrict Indian participation.
+    </p>
+    <p>
+      It was only in 1922 that the ICS examination began to be conducted in India, initially in Allahabad and later in Delhi. This marked a significant step towards greater Indian inclusion in the administrative system. Similarly, the Indian (Imperial) Police services were initially dominated by British officers, with entry for Indians opening gradually after 1920.
+    </p>
+    <p>
+      Administrative reforms continued with legislative developments such as the <em>Government of India Act 1919</em>, which divided services into All India Services and Central Services. Later, the <em>Government of India Act 1935</em> provided for the establishment of a Federal Public Service Commission and Provincial Public Service Commissions. Accordingly, in 1937, the Federal Public Service Commission came into existence.
+    </p>
+    <p>
+      Following India's independence and the adoption of the Constitution on 26 January 1950, the Federal Public Service Commission was renamed as the <strong>Union Public Service Commission</strong> under Article 378 of the Constitution of India. Since then, UPSC has functioned as an autonomous and constitutional authority responsible for ensuring fair and merit-based recruitment to the country's top administrative services.
     </p>
   </section>
 
@@ -109,14 +145,32 @@ const faqs = [
   <section class="max-w-7xl mx-auto px-5 sm:px-8 py-16">
     <h2 class="text-3xl text-center">Posts Under UPSC</h2>
     <div class="hairline my-6 max-w-md mx-auto"></div>
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      {posts.map((p, i) => (
-        <div data-reveal data-reveal-delay={String((i % 5) + 1)} class="card card-interactive px-5 py-4 flex items-center gap-3 text-sm">
-          <span class="h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none ring-4 ring-[var(--color-gold)]/20"></span>
-          <span>{p}</span>
+    <p class="text-center text-[var(--color-muted)] max-w-3xl mx-auto leading-relaxed">
+      The Civil Services Examination recruits candidates to a wide range of prestigious services, broadly categorised into All India Services, Group ‘A’ Services, and Group ‘B’ Services.
+    </p>
+    {postsByCategory.map((cat) => (
+      <div class="mt-12">
+        <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">{cat.title}</p>
+        <div class="hairline mt-3 mb-6 max-w-[6rem]"></div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {cat.items.map((p, i) => (
+            <div data-reveal data-reveal-delay={String((i % 5) + 1)} class="card card-interactive px-5 py-4 flex items-center gap-3 text-sm">
+              <span class="h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none ring-4 ring-[var(--color-gold)]/20"></span>
+              <span>{p}</span>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Conclusion -->
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 pb-16 prose-readable">
+    <h2 class="text-3xl">In Conclusion</h2>
+    <div class="hairline my-6"></div>
+    <p>
+      The Union Public Service Commission and the Civil Services Examination together form the backbone of India's administrative structure. With a rich historical legacy and a strong constitutional foundation, UPSC continues to uphold the principles of <strong>merit, fairness, and transparency</strong> in recruitment. The civil services not only offer a prestigious career path but also provide an opportunity to contribute meaningfully to governance, policy implementation, and nation-building.
+    </p>
   </section>
 
   <!-- Exam Pattern -->
