@@ -1,17 +1,9 @@
 ---
+export const prerender = false;
 import Layout from "../layouts/Layout.astro";
+import { listGalleryImages } from "../lib/gallery";
 
-const shots = [
-  { caption: "Live online classroom session", ratio: "md:row-span-2 md:col-span-2", u: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Webinar at IIT Delhi", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=700&q=72" },
-  { caption: "Study materials & notes", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=700&q=72" },
-  { caption: "Guest session — serving IAS officer", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Mains answer-writing workshop", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=700&q=72" },
-  { caption: "Orientation day — new batch", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=700&q=72" },
-  { caption: "Weekly prelims test series", ratio: "md:col-span-2", u: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=900&q=72" },
-  { caption: "Aspirants across India", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=700&q=72" },
-  { caption: "Director's interaction hour", ratio: "md:col-span-1", u: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=1600&q=80", thumb: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=700&q=72" },
-];
+const shots = await listGalleryImages();
 ---
 <Layout title="Gallery — Knowledge IAS Academy">
   <section class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 lg:pt-24 pb-14">
@@ -27,40 +19,44 @@ const shots = [
   </section>
 
   <section class="max-w-7xl mx-auto px-5 sm:px-8 pb-24">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-[190px] md:auto-rows-[220px]">
-      {shots.map((p, i) => (
-        <button
-          type="button"
-          data-reveal
-          data-reveal-delay={String((i % 5) + 1)}
-          data-lightbox-open
-          data-index={i}
-          data-src={p.u}
-          data-caption={p.caption}
-          class={`${p.ratio} relative overflow-hidden rounded-2xl card !p-0 group cursor-zoom-in text-left`}
-          aria-label={`Open photo ${i + 1}: ${p.caption}`}
-        >
-          <img
-            src={p.thumb}
-            alt={p.caption}
-            loading="lazy"
-            decoding="async"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
-          <figcaption class="absolute inset-x-0 bottom-0 p-4 text-xs tracking-wide text-white">
-            <span class="text-[var(--color-gold)] font-semibold">0{i + 1}</span>
-            <span class="mx-2 opacity-50">·</span>
-            <span>{p.caption}</span>
-          </figcaption>
-          <div class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </div>
-        </button>
-      ))}
-    </div>
-
-    <p class="mt-10 text-center text-sm text-[var(--color-muted)]">Placeholder images. Share your academy photographs at <a class="link-underline hover:text-[var(--color-gold-deep)]" href="mailto:knowledge4ias@gmail.com">knowledge4ias@gmail.com</a> and we'll feature them here.</p>
+    {shots.length === 0 ? (
+      <div class="py-24 text-center">
+        <p class="text-sm text-[var(--color-muted)]">Photographs coming soon.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        {shots.map((p, i) => (
+          <button
+            type="button"
+            data-reveal
+            data-reveal-delay={String((i % 5) + 1)}
+            data-lightbox-open
+            data-index={i}
+            data-src={p.url}
+            data-caption={p.caption}
+            class="aspect-[4/3] relative overflow-hidden rounded-2xl card !p-0 group cursor-zoom-in text-left"
+            aria-label={`Open photo ${i + 1}: ${p.caption}`}
+          >
+            <img
+              src={p.url}
+              alt={p.caption}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <figcaption class="absolute inset-x-0 bottom-0 p-4 text-xs tracking-wide text-white">
+              <span class="text-[var(--color-gold)] font-semibold">{String(i + 1).padStart(2, "0")}</span>
+              <span class="mx-2 opacity-50">·</span>
+              <span class="line-clamp-2">{p.caption}</span>
+            </figcaption>
+            <div class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </div>
+          </button>
+        ))}
+      </div>
+    )}
   </section>
 
   <!-- Lightbox -->

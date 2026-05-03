@@ -32,3 +32,6 @@ New edit Broucher *.pdf.docx
 # runtime data (contact form submissions — never commit real enquiries)
 data/
 
+# locally-uploaded gallery images (production uses Vercel Blob)
+public/gallery/
+

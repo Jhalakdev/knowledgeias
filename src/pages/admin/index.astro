@@ -6,17 +6,24 @@ import {
   countUnreadSubmissions,
   listSubscribers,
 } from "../../lib/store";
+import { listGalleryImages } from "../../lib/gallery";
 
-const [submissions, unread, subscribers] = await Promise.all([
+const [submissions, unread, subscribers, galleryImages] = await Promise.all([
   listSubmissions(),
   countUnreadSubmissions(),
   listSubscribers(),
+  listGalleryImages(),
 ]);
 
 const total = submissions.length;
 const totalSubscribers = subscribers.length;
+const totalImages = galleryImages.length;
 
-const tab = Astro.url.searchParams.get("tab") === "newsletter" ? "newsletter" : "enquiries";
+const requestedTab = Astro.url.searchParams.get("tab");
+const tab: "enquiries" | "newsletter" | "gallery" =
+  requestedTab === "newsletter" ? "newsletter" :
+  requestedTab === "gallery" ? "gallery" :
+  "enquiries";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -75,7 +82,7 @@ function toCsv(rows: Record<string, unknown>[]) {
         <div>
           <p class="text-xs uppercase tracking-[0.22em] text-[var(--color-gold-deep)] font-semibold">Dashboard</p>
           <h1 class="mt-2 font-serif text-3xl sm:text-4xl">
-            {tab === "enquiries" ? "Contact Enquiries" : "Newsletter Subscribers"}
+            {tab === "enquiries" ? "Contact Enquiries" : tab === "newsletter" ? "Newsletter Subscribers" : "Gallery"}
           </h1>
         </div>
         <div class="flex flex-wrap items-center gap-2">
@@ -92,6 +99,13 @@ function toCsv(rows: Record<string, unknown>[]) {
           >
             Newsletter
             <span class="ml-1.5 text-xs opacity-80">{totalSubscribers}</span>
+          </a>
+          <a
+            href="/admin?tab=gallery"
+            class={`text-sm px-4 py-2 rounded-full transition-colors ${tab === "gallery" ? "bg-[var(--color-ink)] text-[var(--color-cream)]" : "bg-white border border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-[var(--color-gold-soft)]"}`}
+          >
+            Gallery
+            <span class="ml-1.5 text-xs opacity-80">{totalImages}</span>
           </a>
         </div>
       </div>
@@ -183,6 +197,79 @@ function toCsv(rows: Record<string, unknown>[]) {
         </section>
       )}
 
+      {tab === "gallery" && (
+        <section class="mt-8">
+          <div class="card p-6 sm:p-7">
+            <div class="flex items-start justify-between gap-4 mb-5">
+              <div>
+                <h2 class="font-serif text-xl">Upload images</h2>
+                <p class="mt-1 text-sm text-[var(--color-muted)]">JPG, PNG, WebP, AVIF or GIF — up to 10 MB each. You can drop multiple files at once.</p>
+              </div>
+            </div>
+
+            <label
+              id="gallery-drop"
+              for="gallery-input"
+              class="block border-2 border-dashed border-[var(--color-line)] hover:border-[var(--color-gold)] rounded-2xl p-8 sm:p-10 text-center cursor-pointer transition-colors bg-[var(--color-cream)]/40"
+            >
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d98e12" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="mt-3 text-sm text-[var(--color-ink-soft)]"><span class="font-semibold text-[var(--color-ink)]">Click to choose files</span> or drag &amp; drop here</p>
+              <p class="mt-1 text-xs text-[var(--color-muted)]">Multiple files supported · captions can be edited below after upload</p>
+              <input id="gallery-input" type="file" accept="image/*" multiple class="hidden" />
+            </label>
+
+            <div id="gallery-queue" class="mt-5 hidden space-y-2"></div>
+          </div>
+
+          <div class="mt-8">
+            {totalImages === 0 ? (
+              <div class="py-20 text-center text-sm text-[var(--color-muted)]">
+                No images yet — upload some above.
+              </div>
+            ) : (
+              <>
+                <div class="flex items-center justify-between mb-4">
+                  <p class="text-sm text-[var(--color-ink-soft)]"><span class="font-semibold">{totalImages}</span> {totalImages === 1 ? "image" : "images"} on the public gallery</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {galleryImages.map((img) => (
+                    <div class="card !p-0 overflow-hidden group relative flex flex-col">
+                      <div class="aspect-[4/3] bg-[var(--color-cream)] overflow-hidden">
+                        <img src={img.url} alt={img.caption} loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                      </div>
+                      <form method="POST" action="/api/admin/gallery/update" class="px-3 pt-3 pb-2 flex flex-col gap-2 flex-1">
+                        <input type="hidden" name="id" value={img.id} />
+                        <label class="block">
+                          <span class="block text-[9px] uppercase tracking-[0.18em] text-[var(--color-muted)] font-semibold mb-1">Caption</span>
+                          <input
+                            type="text"
+                            name="caption"
+                            value={img.caption}
+                            maxlength="140"
+                            class="w-full text-xs text-[var(--color-ink)] bg-[var(--color-cream)] border border-[var(--color-line)] focus:border-[var(--color-gold-deep)] rounded-lg px-2.5 py-1.5 outline-none transition-colors"
+                            placeholder="Add a caption…"
+                          />
+                        </label>
+                        <div class="flex items-center justify-between gap-2 mt-auto pt-1">
+                          <span class="text-[10px] text-[var(--color-muted)]">{img.size > 0 ? `${Math.round(img.size / 1024)} KB` : "External"}</span>
+                          <button type="submit" class="text-[11px] px-2.5 py-1 rounded-full bg-[var(--color-ink)] text-[var(--color-cream)] hover:bg-[var(--color-gold-deep)] transition-colors">Save</button>
+                        </div>
+                      </form>
+                      <div class="px-3 pb-3 -mt-1">
+                        <form method="POST" action="/api/admin/gallery/delete" onsubmit="return confirm('Delete this image permanently?')">
+                          <input type="hidden" name="id" value={img.id} />
+                          <button type="submit" class="w-full text-[11px] px-2 py-1.5 rounded-full border border-red-200 text-red-700 hover:bg-red-50" aria-label="Delete image">Delete</button>
+                        </form>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
       {tab === "newsletter" && (
         <section class="mt-8">
           {totalSubscribers === 0 && (
@@ -239,5 +326,90 @@ function toCsv(rows: Record<string, unknown>[]) {
       )}
 
     </main>
+
+    <script is:inline>
+      (() => {
+        const drop = document.getElementById("gallery-drop");
+        const input = document.getElementById("gallery-input");
+        const queue = document.getElementById("gallery-queue");
+        if (!drop || !input || !queue) return;
+
+        function row(name) {
+          const el = document.createElement("div");
+          el.className = "flex items-center gap-3 text-sm rounded-xl border border-[var(--color-line)] bg-white px-4 py-2.5";
+          el.innerHTML = `
+            <span class="flex-1 truncate text-[var(--color-ink-soft)]" title="${name}">${name}</span>
+            <span class="status text-xs text-[var(--color-muted)]">Queued</span>
+          `;
+          return el;
+        }
+
+        async function upload(file, statusEl) {
+          if (!file.type || !file.type.startsWith("image/")) {
+            statusEl.textContent = "Skipped — not an image";
+            statusEl.className = "status text-xs text-red-600";
+            return;
+          }
+          statusEl.textContent = "Uploading…";
+          statusEl.className = "status text-xs text-[var(--color-gold-deep)]";
+          const fd = new FormData();
+          fd.append("file", file);
+          try {
+            const res = await fetch("/api/admin/gallery/upload", { method: "POST", body: fd });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || body.ok === false) {
+              statusEl.textContent = body.error || "Failed";
+              statusEl.className = "status text-xs text-red-600";
+              return false;
+            }
+            statusEl.textContent = "Done";
+            statusEl.className = "status text-xs text-green-700";
+            return true;
+          } catch {
+            statusEl.textContent = "Network error";
+            statusEl.className = "status text-xs text-red-600";
+            return false;
+          }
+        }
+
+        async function handleFiles(files) {
+          const list = Array.from(files);
+          if (list.length === 0) return;
+          queue.classList.remove("hidden");
+          queue.innerHTML = "";
+          const rows = list.map((f) => {
+            const r = row(f.name);
+            queue.appendChild(r);
+            return r.querySelector(".status");
+          });
+          let ok = 0;
+          for (let i = 0; i < list.length; i++) {
+            const success = await upload(list[i], rows[i]);
+            if (success) ok++;
+          }
+          if (ok > 0) {
+            setTimeout(() => location.reload(), 600);
+          }
+        }
+
+        input.addEventListener("change", () => handleFiles(input.files));
+
+        ["dragenter", "dragover"].forEach((evt) =>
+          drop.addEventListener(evt, (e) => {
+            e.preventDefault();
+            drop.classList.add("border-[var(--color-gold)]", "bg-[var(--color-gold-soft)]/40");
+          })
+        );
+        ["dragleave", "drop"].forEach((evt) =>
+          drop.addEventListener(evt, (e) => {
+            e.preventDefault();
+            drop.classList.remove("border-[var(--color-gold)]", "bg-[var(--color-gold-soft)]/40");
+          })
+        );
+        drop.addEventListener("drop", (e) => {
+          if (e.dataTransfer && e.dataTransfer.files) handleFiles(e.dataTransfer.files);
+        });
+      })();
+    </script>
   </body>
 </html>
