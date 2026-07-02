@@ -112,6 +112,19 @@ const curriculum = [
     ],
   },
   {
+    subject: "Geography",
+    icon: "mountain",
+    summary: "Physical, human and economic geography — India and the world.",
+    lectures: [
+      "Physical geography — landforms, climate, soils, natural vegetation",
+      "Indian geography — physiographic divisions, rivers, monsoons",
+      "World geography — continents, oceans, major physical features",
+      "Human geography — population, migration, settlements",
+      "Economic geography — agriculture, industry, resources, trade",
+      "Environmental geography — biodiversity, conservation, climate links",
+    ],
+  },
+  {
     subject: "Environmental & Ecology",
     icon: "leaf",
     summary: "Ecology, biodiversity, pollution, climate change, key laws.",
@@ -203,8 +216,8 @@ const curriculum = [
 const features = [
   { t: "Built for young minds", b: "A curriculum that respects the school timetable — structured, bite-sized, and paced around board exam cycles.", icon: "sun" },
   { t: "Skills, not just syllabus", b: "Critical thinking, analytical reasoning and effective communication — skills that pay off in school, college and UPSC alike.", icon: "brain" },
-  { t: "Mentorship from Day One", b: "Regular interactions with Mr. Ajay Sah and senior faculty who've taught at GS Score, Next IAS and Chanakya IAS.", icon: "hand" },
-  { t: "Foundation that compounds", b: "The subjects students learn here — Ethics, IR, Polity — stay relevant right till the Mains and Interview stages.", icon: "stack" },
+  { t: "Mentorship from Day One", b: "Regular interactions with faculty members and mentors.", icon: "hand" },
+  { t: "Foundation that compounds", b: "Make a solid foundation of all the relevant and important subjects of UPSC.", icon: "stack" },
 ];
 
 const faqs = [
@@ -250,7 +263,7 @@ const faqs = [
   },
   {
     q: "What is the duration of the course?",
-    a: "Approximately 100 hours, spread over three months or slightly more — allowing students to learn at a comfortable and steady pace.",
+    a: "Approximately 150 hours, spread over three months or slightly more — allowing students to learn at a comfortable and steady pace.",
   },
   {
     q: "What is the fee structure?",
@@ -270,7 +283,7 @@ const faqs = [
   },
   {
     q: "Will the classes be live or recorded?",
-    a: "The programme includes a balanced mix of both — live classes and recorded lectures — providing flexibility along with interactive learning.",
+    a: "The lectures will primarily be pre-recorded, supplemented by regular live doubt-clearing sessions.",
   },
   {
     q: "Will I receive study material?",
@@ -329,9 +342,9 @@ const faqs = [
 
       <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6" data-reveal data-reveal-delay="2">
         {[
-          { k: "119", v: "Structured Lectures" },
-          { k: "11", v: "Core UPSC Subjects" },
-          { k: "Class IX+", v: "Eligibility" },
+          { k: "150+", v: "Structured Lectures" },
+          { k: "12", v: "Core UPSC Subjects" },
+          { k: "Class 8th", v: "Eligibility" },
           { k: "Flexible", v: "Batch Schedule" },
         ].map((s) => (
           <div class="relative pl-5">
@@ -382,7 +395,7 @@ const faqs = [
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>
           <span class="text-xs uppercase tracking-[0.22em] font-semibold">Full Curriculum</span>
         </div>
-        <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Eleven subjects. <span class="italic text-[var(--color-gold-deep)]">119 lectures.</span></h2>
+        <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Twelve subjects. <span class="italic text-[var(--color-gold-deep)]">150+ lectures.</span></h2>
         <p class="mt-4 max-w-2xl text-[var(--color-muted)]">
           Every subject below unfolds through a structured set of lectures designed for conceptual clarity and exam-readiness.
         </p>
@@ -407,6 +420,7 @@ const faqs = [
                   {s.icon === "briefcase" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>}
                   {s.icon === "chart" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>}
                   {s.icon === "sprout" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>}
+                  {s.icon === "mountain" && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>}
                 </div>
 
                 <div class="min-w-0">

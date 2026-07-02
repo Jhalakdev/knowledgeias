@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 
 const stats = [
   { value: "10+", label: "Years of Mentorship", icon: "star" },
-  { value: "900+", label: "Annual CSE Selections", icon: "award" },
   { value: "IIT · NIT · BHU", label: "Seminars Delivered", icon: "mic" },
 ];
 
@@ -310,12 +309,18 @@ const upscPosts = [
           <p class="text-xs uppercase tracking-[0.25em] text-[var(--color-gold)] font-semibold">What students learn</p>
           <ul class="mt-6 space-y-4 text-sm text-[rgba(250,246,236,0.85)]">
             {[
-              { t: "Internal Security", d: "terrorism, cyber security, border management" },
-              { t: "Indian Society", d: "caste, communalism, urbanization, Census 2011" },
-              { t: "Ethics", d: "schools of thought, Indian & Western thinkers, integrity" },
-              { t: "Science & Technology", d: "space, biotech, defence, IPR" },
-              { t: "International Relations", d: "QUAD, BRICS, neighbourhood policy" },
-              { t: "Post-Independence History", d: "from Nehru era to 21st century" },
+              { t: "Internal Security", d: "India's security challenges and response mechanisms." },
+              { t: "Indian Society", d: "India's social structure, diversity, and issues." },
+              { t: "Ethics, Integrity & Aptitude", d: "Ethics, integrity, and decision-making in governance." },
+              { t: "Science & Technology", d: "Scientific innovations and technological advancements." },
+              { t: "International Relations", d: "India's foreign policy and global affairs." },
+              { t: "Post-Independence History", d: "India's journey after Independence." },
+              { t: "Geography", d: "Physical, human, and economic geography." },
+              { t: "Indian Polity", d: "Constitution, governance, and political institutions." },
+              { t: "Administration & Governance", d: "Public administration and effective governance." },
+              { t: "Environment & Ecology", d: "Ecology, conservation, and sustainability." },
+              { t: "Agriculture", d: "Agriculture, rural economy, and food security." },
+              { t: "Economics", d: "Economic concepts, policies, and development." },
             ].map((x) => (
               <li class="flex gap-4 group">
                 <span class="mt-1.5 h-2 w-2 rounded-full bg-[var(--color-gold)] flex-none ring-4 ring-[var(--color-gold)]/20 group-hover:ring-[var(--color-gold)]/40 transition"></span>
@@ -331,37 +336,6 @@ const upscPosts = [
     </div>
   </section>
 
-  <!-- TESTIMONIAL -->
-  <section class="py-24 lg:py-32 relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 flex items-center justify-center">
-      <svg width="820" viewBox="0 0 100 100" class="opacity-[0.035]" aria-hidden="true">
-        <text x="0" y="85" font-family="Fraunces" font-weight="600" font-size="120" fill="currentColor" class="text-[var(--color-gold-deep)]">&ldquo;</text>
-      </svg>
-    </div>
-
-    <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center" data-reveal>
-      <div class="ornament max-w-sm mx-auto mb-5">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>
-        <span class="text-xs uppercase tracking-[0.22em] font-semibold">Messages from Civil Servants</span>
-      </div>
-      <blockquote class="text-2xl sm:text-[2rem] lg:text-[2.5rem] font-serif leading-[1.2] text-[var(--color-ink)] max-w-4xl mx-auto">
-        <span class="text-[var(--color-gold-deep)] font-serif">“</span>Starting preparation during school years gives you a <em class="text-[var(--color-gold-deep)]">decade of quiet, compounding advantage</em>. It's the single highest-leverage decision an aspirant can make.<span class="text-[var(--color-gold-deep)] font-serif">”</span>
-      </blockquote>
-
-      <div class="mt-10 inline-flex items-center gap-4 border border-[var(--color-line)] bg-white rounded-full py-2 pl-2 pr-6 shadow-[var(--shadow-card)]">
-        <span class="h-10 w-10 rounded-full bg-[var(--color-gold)] flex items-center justify-center font-serif text-[var(--color-ink)]">IO</span>
-        <div class="text-left">
-          <p class="font-medium text-sm">A serving IAS Officer</p>
-          <p class="text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted)] mt-0.5">Batch of 2019</p>
-        </div>
-      </div>
-
-      <div class="mt-10">
-        <a href="/messages" class="btn-ghost">Read all messages</a>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <section class="pb-28">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
@@ -372,7 +346,7 @@ const upscPosts = [
         <div class="relative">
           <h2 class="text-3xl sm:text-[2.5rem] leading-tight">Ready to begin?</h2>
           <p class="mt-5 text-[var(--color-ink-soft)] leading-relaxed max-w-lg">
-            Book a free online counselling call and we'll help you map out your UPSC journey — whether you're starting in Class IX or already in your graduation years. All sessions are online, accessible from anywhere in India.
+            Book a free online counselling call and we'll help you map out your UPSC journey — whether you're starting in Class 8th or already in your graduation years. All sessions are online, accessible from anywhere in India.
           </p>
         </div>
         <div class="relative flex flex-wrap md:justify-end gap-3">
