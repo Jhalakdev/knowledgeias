@@ -110,28 +110,24 @@ const {
           window.addEventListener("scroll", onScroll, { passive: true });
         }
 
-        // WhatsApp prompt bubble — auto-show after a short delay, remember dismissal
+        // WhatsApp prompt bubble — auto-show after a short delay, re-show periodically
         const bubble = document.getElementById("wa-bubble");
         const closeBtn = document.getElementById("wa-close");
         const button = document.getElementById("wa-button");
         if (bubble && closeBtn && button) {
-          let dismissed = false;
-          try { dismissed = localStorage.getItem("wa-bubble-dismissed") === "1"; } catch (_) {}
-          if (!dismissed) {
-            setTimeout(() => {
-              bubble.classList.remove("opacity-0", "translate-y-2");
-              bubble.classList.add("opacity-100", "translate-y-0");
-            }, 1800);
+          function showBubble() {
+            bubble.classList.remove("opacity-0", "translate-y-2");
+            bubble.classList.add("opacity-100", "translate-y-0");
           }
-          const hide = () => {
+          function hideBubble() {
             bubble.classList.add("opacity-0", "translate-y-2");
             bubble.classList.remove("opacity-100", "translate-y-0");
-            try { localStorage.setItem("wa-bubble-dismissed", "1"); } catch (_) {}
-          };
-          closeBtn.addEventListener("click", hide);
-          button.addEventListener("click", () => {
-            try { localStorage.setItem("wa-bubble-dismissed", "1"); } catch (_) {}
-          });
+          }
+          // Show initially after 2s, then re-show every 30s
+          setTimeout(showBubble, 2000);
+          setInterval(showBubble, 30000);
+          closeBtn.addEventListener("click", hideBubble);
+          button.addEventListener("click", hideBubble);
         }
       })();
     </script>
